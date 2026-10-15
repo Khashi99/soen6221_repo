@@ -1,0 +1,1433 @@
+review_index,comment_id,framework,repository,commit,path,start_line,end_line,raw_text,context_reviewed,context_start_line,context_end_line,source_url,reviewer_type,ai_label,ai_reason,scope,human_label,human_reason
+1,57dae6aa12099542b348bf741ef08d7ca58d696f63b7882d9f7ecb4ef2e4b068,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/vector_stores/llama-index-vector-stores-solr/llama_index/vector_stores/solr/client/async_.py,36,38,"# aiosolr.Client builds URLs for various actions in a hardcoded manner; for
+# URLs with ports (such as localhost URLs), we need to pass the parsed version
+# for external URLs, we need to pass the connection URL directly","    async def _build_client(self) -> aiosolr.Client:
+        try:
+            logger.info(""Initializing aiosolr client for URL: %s"", self.base_url)
+            # aiosolr.Client builds URLs for various actions in a hardcoded manner; for
+            # URLs with ports (such as localhost URLs), we need to pass the parsed version
+            # for external URLs, we need to pass the connection URL directly
+            parsed_url = urlparse(self.base_url)
+            *_, collection = parsed_url.path.split(""/"")
+            if parsed_url.port is not None:",33,41,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-solr/llama_index/vector_stores/solr/client/async_.py#L36-L38,AI-assisted contextual review by Codex; not human ground truth,SATD,Acknowledges hard-coded URL handling in a dependency that requires special-case connection construction.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+2,3d85efa0aadff37b713eddd256e7d3bd049d002bcd7abe0388da88a0160b816f,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/program/llama-index-program-evaporate/llama_index/program/evaporate/base.py,262,262,# TODO: either specify `nodes` or `texts` in kwds,"249:         """"""Output class.""""""
+250:         return DataFrameValuesPerColumn
+251: 
+252:     def _inference(
+253:         self, nodes: List[BaseNode], fn_str: str, field_name: str
+254:     ) -> List[Any]:
+255:         """"""Given the input, call the python code and return the result.""""""
+256:         results_by_node = self._extractor.run_fn_on_nodes(nodes, fn_str, field_name)
+257:         # flatten results
+258:         return [r for results in results_by_node for r in results]
+259: 
+260:     def __call__(self, *args: Any, **kwds: Any) -> DataFrameValuesPerColumn:
+261:         """"""Call evaporate on inference data.""""""
+262:         # TODO: either specify `nodes` or `texts` in kwds
+263:         if ""nodes"" in kwds:
+264:             nodes = kwds[""nodes""]
+265:         elif ""texts"" in kwds:
+266:             nodes = [TextNode(text=t) for t in kwds[""texts""]]
+267:         else:
+268:             raise ValueError(""Must provide either `nodes` or `texts`."")
+269: 
+270:         col_dict = {}
+271:         for field in self._fields:
+272:             col_dict[field] = self._inference(nodes, self._field_fns[field], field)
+273: 
+274:         # convert col_dict to list of DataFrameRow objects
+275:         df_row_objs = []
+276:         for field in self._fields:
+277:             df_row_objs.append(DataFrameRow(row_values=col_dict[field]))
+278: 
+279:         return DataFrameValuesPerColumn(columns=df_row_objs)",249,279,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/program/llama-index-program-evaporate/llama_index/program/evaporate/base.py#L262-L262,AI-assisted contextual review by Codex; not human ground truth,uncertain,"The TODO says to specify nodes or texts, but the implementation already accepts either and raises if neither is supplied; the remaining correction is unclear.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+3,e8e4e96b0fec480fd411f40d3b7bdb9ec766fd43277d942a68c9e6a3f0e760c6,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/node_parser/text/semantic_double_merging_splitter.py,19,19,# TODO test more languages,"6: from llama_index.core.bridge.pydantic import Field, SerializeAsAny
+7: from llama_index.core.callbacks.base import CallbackManager
+8: from llama_index.core.node_parser.interface import NodeParser
+9: from llama_index.core.node_parser.node_utils import (
+10:     build_nodes_from_splits,
+11:     default_id_func,
+12: )
+13: from llama_index.core.node_parser.text.utils import split_by_sentence_tokenizer
+14: from llama_index.core.schema import BaseNode, Document, NodeRelationship
+15: from llama_index.core.utils import get_tqdm_iterable, globals_helper
+16: 
+17: DEFAULT_OG_TEXT_METADATA_KEY = ""original_text""
+18: 
+19: # TODO test more languages
+20: LANGUAGES: List[str] = [""english"", ""german"", ""spanish""]
+21: LANGUAGE_MODELS: Dict[str, List[str]] = {
+22:     ""english"": [""en_core_web_md"", ""en_core_web_lg""],
+23:     ""german"": [""de_core_news_md"", ""de_core_news_lg""],
+24:     ""spanish"": [""es_core_news_md"", ""es_core_news_lg""],
+25: }
+26: 
+27: 
+28: class LanguageConfig:
+29:     def __init__(
+30:         self,
+31:         language: str = ""english"",
+32:         spacy_model: str = ""en_core_web_md"",
+33:         model_validation: bool = True,
+34:     ):
+35:         if language not in LANGUAGES:
+36:             raise ValueError(
+37:                 f""{language} language is not supported yet! Available languages: {LANGUAGES}""
+38:             )",6,38,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/node_parser/text/semantic_double_merging_splitter.py#L19-L19,AI-assisted contextual review by Codex; not human ground truth,uncertain,Testing more languages could address missing validation or expand future language support; the comment does not distinguish these cases.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+4,356cf78a99f40b18e2ecfeb1a1d7d2aaa0f24cb820ab9911423b9dc133b5f7a9,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/instrumentation/events/synthesis.py,67,68,"# TODO: consumes the first chunk of generators??
+# response: RESPONSE_TEXT_TYPE","45: class GetResponseStartEvent(BaseEvent):
+46:     """"""
+47:     GetResponseStartEvent.
+48: 
+49:     Args:
+50:         query_str (str): Query string.
+51:         text_chunks (List[str]): List of text chunks.
+52: 
+53:     """"""
+54: 
+55:     query_str: str
+56:     text_chunks: List[str]
+57: 
+58:     @classmethod
+59:     def class_name(cls) -> str:
+60:         """"""Class name.""""""
+61:         return ""GetResponseStartEvent""
+62: 
+63: 
+64: class GetResponseEndEvent(BaseEvent):
+65:     """"""GetResponseEndEvent.""""""
+66: 
+67:     # TODO: consumes the first chunk of generators??
+68:     # response: RESPONSE_TEXT_TYPE
+69: 
+70:     @classmethod
+71:     def class_name(cls) -> str:
+72:         """"""Class name.""""""
+73:         return ""GetResponseEndEvent""
+74: 
+75: 
+76: class GetMessageResponseStartEvent(BaseEvent):
+77:     """"""
+78:     GetMessageResponseStartEvent.
+79: 
+80:     Args:
+81:         query_str (str): Query string.
+82:         message_chunks (List[ChatMessage]): List of chat message chunks.
+83: 
+84:     """"""
+85: ",45,85,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/instrumentation/events/synthesis.py#L67-L68,AI-assisted contextual review by Codex; not human ground truth,uncertain,Questions whether a response field consumes a generator chunk and leaves the field commented out; the suspected issue and remaining correction are not established.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+5,8d9dee6f4c622c92d8641df97969cba9b2111e5677eb61fdc8a3594696ad23b6,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/messages/block_translators/openai.py,606,606,# TODO: standardise container_file_citation?,"593:             ""filename"",
+594:         }
+595:         document_citation: types.Citation = {""type"": ""citation""}
+596:         if ""filename"" in annotation:
+597:             document_citation[""title""] = annotation[""filename""]
+598:         for field, value in annotation.items():
+599:             if field not in known_fields:
+600:                 if ""extras"" not in document_citation:
+601:                     document_citation[""extras""] = {}
+602:                 document_citation[""extras""][field] = value
+603: 
+604:         return document_citation
+605: 
+606:     # TODO: standardise container_file_citation?
+607:     non_standard_annotation: types.NonStandardAnnotation = {
+608:         ""type"": ""non_standard_annotation"",
+609:         ""value"": annotation,
+610:     }
+611:     return non_standard_annotation
+612: 
+613: 
+614: def _explode_reasoning(block: dict[str, Any]) -> Iterator[types.ReasoningContentBlock]:
+615:     if ""summary"" not in block:
+616:         yield cast(""types.ReasoningContentBlock"", block)
+617:         return
+618: 
+619:     known_fields = {""type"", ""reasoning"", ""id"", ""index""}
+620:     unknown_fields = [
+621:         field for field in block if field != ""summary"" and field not in known_fields
+622:     ]
+623:     if unknown_fields:
+624:         block[""extras""] = {}
+625:     for field in unknown_fields:",593,625,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/messages/block_translators/openai.py#L606-L606,AI-assisted contextual review by Codex; not human ground truth,uncertain,Tentatively proposes standardizing a currently non-standard annotation; unclear whether this acknowledges a deficiency or an optional representation enhancement.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+6,20521ea37611bb6b4a60d50c3102a0107850b69356a8176319e9f9d820a646c1,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/llms/llama-index-llms-langchain/llama_index/llms/langchain/base.py,245,245,# TODO: Implement async stream_complete,"232:     ) -> ChatResponseAsyncGen:
+233:         # TODO: Implement async stream_chat
+234: 
+235:         async def gen() -> ChatResponseAsyncGen:
+236:             for message in self.stream_chat(messages, **kwargs):
+237:                 yield message
+238: 
+239:         return gen()
+240: 
+241:     @llm_completion_callback()
+242:     async def astream_complete(
+243:         self, prompt: str, formatted: bool = False, **kwargs: Any
+244:     ) -> CompletionResponseAsyncGen:
+245:         # TODO: Implement async stream_complete
+246: 
+247:         async def gen() -> CompletionResponseAsyncGen:
+248:             for response in self.stream_complete(prompt, formatted=formatted, **kwargs):
+249:                 yield response
+250: 
+251:         return gen()",232,251,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/llms/llama-index-llms-langchain/llama_index/llms/langchain/base.py#L245-L245,AI-assisted contextual review by Codex; not human ground truth,SATD,Defers a genuine async streaming implementation while the async wrapper iterates the synchronous stream.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+7,51436fc63eb118759411449723a0589a28804fcca00491eca5633f1c24acb617,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/vector_stores/llama-index-vector-stores-opensearch/llama_index/vector_stores/opensearch/base.py,1028,1028,# TODO: Legacy support for old nodes,"1015:         nodes = []
+1016:         ids = []
+1017:         scores = []
+1018:         for hit in res[""hits""][""hits""]:
+1019:             source = hit[""_source""]
+1020:             node_id = hit[""_id""]
+1021:             text = source[self._text_field]
+1022:             metadata = source.get(""metadata"", None)
+1023: 
+1024:             try:
+1025:                 node = metadata_dict_to_node(metadata)
+1026:                 node.text = text
+1027:             except Exception:
+1028:                 # TODO: Legacy support for old nodes
+1029:                 node_info = source.get(""node_info"")
+1030:                 relationships = source.get(""relationships"") or {}
+1031:                 start_char_idx = None
+1032:                 end_char_idx = None
+1033:                 if isinstance(node_info, dict):
+1034:                     start_char_idx = node_info.get(""start"", None)
+1035:                     end_char_idx = node_info.get(""end"", None)
+1036: 
+1037:                 node = TextNode(
+1038:                     text=text,
+1039:                     metadata=metadata,
+1040:                     id_=node_id,
+1041:                     start_char_idx=start_char_idx,
+1042:                     end_char_idx=end_char_idx,
+1043:                     relationships=relationships,
+1044:                 )
+1045:             ids.append(node_id)
+1046:             nodes.append(node)
+1047:             scores.append(hit[""_score""])",1015,1047,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-opensearch/llama_index/vector_stores/opensearch/base.py#L1028-L1028,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Describes an already implemented compatibility path for legacy nodes; the TODO specifies no outstanding deficiency or correction.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+8,93793bfff2cf0d69d120e3cf99358e195ab58a183cfdafbb78f005a034779bf7,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/callbacks/manager.py,2718,2721,"# We want to get the callback manager for the parent run.
+# This is a work-around for now to be able to dispatch adhoc events from
+# within a tool or a lambda and have the metadata events associated
+# with the parent run rather than have a new run id generated for each.","
+    config = ensure_config(config)
+    callback_manager = get_async_callback_manager_for_config(config)
+    # We want to get the callback manager for the parent run.
+    # This is a work-around for now to be able to dispatch adhoc events from
+    # within a tool or a lambda and have the metadata events associated
+    # with the parent run rather than have a new run id generated for each.
+    if callback_manager.parent_run_id is None:
+        msg = (
+            ""Unable to dispatch an adhoc event without a parent run id.""",2715,2724,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/callbacks/manager.py#L2718-L2721,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly calls the parent-run event dispatch arrangement a work-around for now.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+9,623bc0fd276c81511515163e084bac0563d9e46d5ee662af1bcbb81685f1643f,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/tests/unit_tests/output_parsers/test_base_parsers.py,112,112,"# inputs to models are ignored, response is hard-coded in model definition","
+    model = GenericFakeChatModel(messages=iter([AIMessage(content=""hello world"")]))
+    chain = model | StrInvertCase()
+    # inputs to models are ignored, response is hard-coded in model definition
+    chunks = list(chain.stream(""""))
+    assert chunks == [""HELLO"", "" "", ""WORLD""]",109,115,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/tests/unit_tests/output_parsers/test_base_parsers.py#L112-L112,AI-assisted contextual review by Codex; not human ground truth,non-SATD,"Documents intentional fixed responses in a fake model used by a unit test, without admitting a compromise or deferred repair.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+10,caaf1b4df35a1c585f1b1c6037d1d3b5389dfcf624b0a87bcda405da35cf8a37,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/partners/openai/langchain_openai/chat_models/base.py,5293,5295,"# Workaround for parsing structured output in the streaming case.
+#    from openai import OpenAI
+#    from pydantic import BaseModel","5280:             ""computer_call"",
+5281:             ""code_interpreter_call"",
+5282:             ""mcp_call"",
+5283:             ""mcp_list_tools"",
+5284:             ""mcp_approval_request"",
+5285:             ""image_generation_call"",
+5286:             ""tool_search_call"",
+5287:             ""tool_search_output"",
+5288:             ""apply_patch_call"",
+5289:             ""apply_patch_call_output"",
+5290:         ):
+5291:             content_blocks.append(output.model_dump(exclude_none=True, mode=""json""))
+5292: 
+5293:     # Workaround for parsing structured output in the streaming case.
+5294:     #    from openai import OpenAI
+5295:     #    from pydantic import BaseModel
+5296: 
+5297:     #    class Foo(BaseModel):
+5298:     #        response: str
+5299: 
+5300:     #    client = OpenAI()
+5301: 
+5302:     #    client.responses.parse(
+5303:     #        model=""..."",
+5304:     #        input=[{""content"": ""how are ya"", ""role"": ""user""}],
+5305:     #        text_format=Foo,
+5306:     #        stream=True,  # <-- errors
+5307:     #    )
+5308:     output_text = _get_output_text(response)
+5309:     if (
+5310:         schema is not None
+5311:         and ""parsed"" not in additional_kwargs
+5312:         and output_text  # tool calls can generate empty output text
+5313:         and response.text
+5314:         and (text_config := response.text.model_dump())",5280,5314,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/partners/openai/langchain_openai/chat_models/base.py#L5293-L5295,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly identifies a structured-output streaming workaround; the adjacent commented example marks the SDK streaming parse call as erroring.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+11,b9d065ca44ec93f73b6958006adc0b8f6542555cbd28628ed1ba6bbbab5640ca,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/llms/llama-index-llms-bedrock/tests/test_bedrock.py,103,139,"# TODO: these need to get fixed
+# (
+#     ""anthropic.claude-instant-v1"",
+#     '{""messages"": [{""role"": ""user"", ""content"": [{""text"": ""test prompt"", ""type"": ""text""}]}], ""anthropic_version"": ""bedrock-2023-05-31"", '
+#     '""temperature"": 0.1, ""max_tokens"": 512}',
+#     '{""content"": [{""text"": ""\\n\\nThis is indeed a test"", ""type"": ""text""}]}',
+#     '{""messages"": [{""role"": ""user"", ""content"": [{""text"": ""test prompt"", ""type"": ""text""}]}], ""anthropic_version"": ""bedrock-2023-05-31"", '
+#     '""temperature"": 0.1, ""max_tokens"": 512}',
+# ),
+# (
+#     ""meta.llama2-13b-chat-v1"",
+#     '{""prompt"": ""<s> [INST] <<SYS>>\\n You are a helpful, respectful and '
+#     ""honest assistant. Always answer as helpfully as possible and follow ""
+#     ""ALL given instructions. Do not speculate or make up information. Do ""
+#     ""not reference any given instructions or context. \\n<</SYS>>\\n\\n ""
+#     'test prompt [/INST]"", ""temperature"": 0.1, ""max_gen_len"": 512}',
+#     '{""generation"": ""\\n\\nThis is indeed a test""}',
+#     '{""prompt"": ""<s> [INST] <<SYS>>\\n You are a helpful, respectful and '
+#     ""honest assistant. Always answer as helpfully as possible and follow ""
+#     ""ALL given instructions. Do not speculate or make up information. Do ""
+#     ""not reference any given instructions or context. \\n<</SYS>>\\n\\n ""
+#     'test prompt [/INST]"", ""temperature"": 0.1, ""max_gen_len"": 512}',
+# ),
+# (
+#     ""mistral.mistral-7b-instruct-v0:2"",
+#     '{""prompt"": ""<s> [INST] <<SYS>>\\n You are a helpful, respectful and '
+#     ""honest assistant. Always answer as helpfully as possible and follow ""
+#     ""ALL given instructions. Do not speculate or make up information. Do ""
+#     ""not reference any given instructions or context. \\n<</SYS>>\\n\\n ""
+#     'test prompt [/INST]"", ""temperature"": 0.1, ""max_tokens"": 512}',
+#     '{""outputs"": [{""text"": ""\\n\\nThis is indeed a test"", ""stop_reason"": ""length""}]}',
+#     '{""prompt"": ""<s> [INST] <<SYS>>\\n You are a helpful, respectful and '
+#     ""honest assistant. Always answer as helpfully as possible and follow ""
+#     ""ALL given instructions. Do not speculate or make up information. Do ""
+#     ""not reference any given instructions or context. \\n<</SYS>>\\n\\n ""
+#     'test prompt [/INST]"", ""temperature"": 0.1, ""max_tokens"": 512}',
+# ),","            '{""generations"": [{""text"": ""\\n\\nThis is indeed a test""}]}',
+            '{""prompt"": ""user: test prompt\\nassistant: "", ""temperature"": 0.1, ""max_tokens"": 512}',
+        ),
+        # TODO: these need to get fixed
+        # (
+        #     ""anthropic.claude-instant-v1"",
+        #     '{""messages"": [{""role"": ""user"", ""content"": [{""text"": ""test prompt"", ""type"": ""text""}]}], ""anthropic_version"": ""bedrock-2023-05-31"", '
+        #     '""temperature"": 0.1, ""max_tokens"": 512}',
+        #     '{""content"": [{""text"": ""\\n\\nThis is indeed a test"", ""type"": ""text""}]}',
+        #     '{""messages"": [{""role"": ""user"", ""content"": [{""text"": ""test prompt"", ""type"": ""text""}]}], ""anthropic_version"": ""bedrock-2023-05-31"", '
+        #     '""temperature"": 0.1, ""max_tokens"": 512}',
+        # ),
+        # (
+        #     ""meta.llama2-13b-chat-v1"",
+        #     '{""prompt"": ""<s> [INST] <<SYS>>\\n You are a helpful, respectful and '
+        #     ""honest assistant. Always answer as helpfully as possible and follow ""
+        #     ""ALL given instructions. Do not speculate or make up information. Do ""
+        #     ""not reference any given instructions or context. \\n<</SYS>>\\n\\n ""
+        #     'test prompt [/INST]"", ""temperature"": 0.1, ""max_gen_len"": 512}',
+        #     '{""generation"": ""\\n\\nThis is indeed a test""}',
+        #     '{""prompt"": ""<s> [INST] <<SYS>>\\n You are a helpful, respectful and '
+        #     ""honest assistant. Always answer as helpfully as possible and follow ""
+        #     ""ALL given instructions. Do not speculate or make up information. Do ""
+        #     ""not reference any given instructions or context. \\n<</SYS>>\\n\\n ""
+        #     'test prompt [/INST]"", ""temperature"": 0.1, ""max_gen_len"": 512}',
+        # ),
+        # (
+        #     ""mistral.mistral-7b-instruct-v0:2"",
+        #     '{""prompt"": ""<s> [INST] <<SYS>>\\n You are a helpful, respectful and '
+        #     ""honest assistant. Always answer as helpfully as possible and follow ""
+        #     ""ALL given instructions. Do not speculate or make up information. Do ""
+        #     ""not reference any given instructions or context. \\n<</SYS>>\\n\\n ""
+        #     'test prompt [/INST]"", ""temperature"": 0.1, ""max_tokens"": 512}',
+        #     '{""outputs"": [{""text"": ""\\n\\nThis is indeed a test"", ""stop_reason"": ""length""}]}',
+        #     '{""prompt"": ""<s> [INST] <<SYS>>\\n You are a helpful, respectful and '
+        #     ""honest assistant. Always answer as helpfully as possible and follow ""
+        #     ""ALL given instructions. Do not speculate or make up information. Do ""
+        #     ""not reference any given instructions or context. \\n<</SYS>>\\n\\n ""
+        #     'test prompt [/INST]"", ""temperature"": 0.1, ""max_tokens"": 512}',
+        # ),
+    ],
+)
+def test_model_basic(",100,142,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/llms/llama-index-llms-bedrock/tests/test_bedrock.py#L103-L139,AI-assisted contextual review by Codex; not human ground truth,SATD,"Explicitly states that disabled model test cases need to be fixed, admitting deferred test repair.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+12,02371ff98ad7ce1c1b69d811c9d0648f2e3c490945f56948042d33ba0e709ce5,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/partners/perplexity/tests/integration_tests/test_chat_models_standard.py,64,67,"# These two tests hard-code `tool_choice=""any""` (they are not gated by
+# `has_tool_choice`) to force a tool call, which the Responses route rejects
+# with `ValueError`. They are xfailed here rather than disabling the whole
+# tool-calling family; every other tool test runs and passes.","51: 
+52:     @property
+53:     def chat_model_params(self) -> dict:
+54:         return {""model"": ""openai/gpt-5"", ""use_responses_api"": True}
+55: 
+56:     @property
+57:     def has_tool_choice(self) -> bool:
+58:         # The Perplexity Responses (Agent) API does not support `tool_choice`
+59:         # (`_to_responses_payload` raises `ValueError`), so forced tool
+60:         # selection cannot be used here. The model still calls tools when the
+61:         # prompt warrants it, which is what the tool tests assert.
+62:         return False
+63: 
+64:     # These two tests hard-code `tool_choice=""any""` (they are not gated by
+65:     # `has_tool_choice`) to force a tool call, which the Responses route rejects
+66:     # with `ValueError`. They are xfailed here rather than disabling the whole
+67:     # tool-calling family; every other tool test runs and passes.
+68:     @pytest.mark.xfail(
+69:         reason=""Responses (Agent) API does not support tool_choice; this test ""
+70:         ""hard-codes tool_choice='any'.""
+71:     )
+72:     def test_unicode_tool_call_integration(self, *args: Any, **kwargs: Any) -> None:
+73:         super().test_unicode_tool_call_integration(*args, **kwargs)
+74: 
+75:     @pytest.mark.xfail(
+76:         reason=""Responses (Agent) API does not support tool_choice; this test ""
+77:         ""hard-codes tool_choice='any'.""
+78:     )
+79:     def test_structured_few_shot_examples(self, *args: Any, **kwargs: Any) -> None:
+80:         super().test_structured_few_shot_examples(*args, **kwargs)",51,80,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/partners/perplexity/tests/integration_tests/test_chat_models_standard.py#L64-L67,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Documents expected failures for an API capability that the provider does not support; no current corrective obligation in this implementation is stated.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+13,b38de9573607c83af67d2153016c4d069b7acba8dc78092b58e72e09cb83881f,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/tracers/event_stream.py,1072,1075,"# This is a work-around an issue where the inputs into the
+# chain are not available until the entire input is consumed.
+# As a temporary solution, we'll modify the input to be the input
+# that was passed into the chain.","        async for event in event_streamer:
+            if not first_event_sent:
+                first_event_sent = True
+                # This is a work-around an issue where the inputs into the
+                # chain are not available until the entire input is consumed.
+                # As a temporary solution, we'll modify the input to be the input
+                # that was passed into the chain.
+                event[""data""][""input""] = value
+                first_event_run_id = event[""run_id""]
+                yield event",1069,1078,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/tracers/event_stream.py#L1072-L1075,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly acknowledges an input-availability issue and a temporary input substitution workaround.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+14,47482951441610646cefd67fe9917a31431729e669e85cc371c02486d9d9dc67,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/vectorstores/base.py,443,445,"# This is a temporary workaround to make the similarity search
+# asynchronous. The proper solution is to make the similarity search
+# asynchronous in the vector store implementations.","        Returns:
+            List of tuples of `(doc, similarity_score)`.
+        """"""
+        # This is a temporary workaround to make the similarity search
+        # asynchronous. The proper solution is to make the similarity search
+        # asynchronous in the vector store implementations.
+        return await run_in_executor(
+            None, self.similarity_search_with_score, *args, **kwargs
+        )",440,448,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/vectorstores/base.py#L443-L445,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly contrasts the temporary executor-based async wrapper with the proper native async implementation.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+15,d22336d7af525a2df36aca464fad606beae2d14b1c3a8c909ebafc6d265a3fcd,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/tracers/log_stream.py,596,596,# Workaround for Runnables not using None,"    # We should try to fix this in Runnables and callbacks/tracers
+    # Runnables should be using a None type here not a placeholder
+    # dict.
+    if inputs == {""input"": """"}:  # Workaround for Runnables not using None
+        # The input is not known, so we don't assign data['input']
+        return None
+    return inputs",593,599,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/tracers/log_stream.py#L596-L596,AI-assisted contextual review by Codex; not human ground truth,SATD,Nearby comments explicitly say Runnables should be fixed to use None instead of a placeholder dictionary; the branch compensates for that deficiency.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+16,90bc7e5c7800d96b84257baba3bfee1976d329dc2db1d6a862ed0e1e9df3f974,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/partners/openai/langchain_openai/chat_models/_client_utils.py,45,46,"# Mirrors the openai SDK's pool defaults. Hardcoded to avoid depending on
+# an internal module path (openai._constants) that can move across SDK versions.","_DARWIN_TCP_KEEPINTVL = 0x101
+_DARWIN_TCP_KEEPCNT = 0x102
+
+# Mirrors the openai SDK's pool defaults. Hardcoded to avoid depending on
+# an internal module path (openai._constants) that can move across SDK versions.
+_DEFAULT_CONNECTION_LIMITS = httpx.Limits(
+    max_connections=1000,
+    max_keepalive_connections=100,",42,49,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/partners/openai/langchain_openai/chat_models/_client_utils.py#L45-L46,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Documents an intentional choice to copy stable connection defaults rather than depend on a private SDK module; no inadequacy or deferred correction is admitted.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+17,ed7995d10ffac74ba8fd604ca5f453d94d78da140b1cb62b667ede17b70ab4f6,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/langchain/tests/unit_tests/agents/test_structured_chat.py,120,121,"# TODO: add more tests.
+# Test: StructuredChatAgent.create_prompt() method.","107:     Action:
+108:     ```json
+109:     {
+110:       ""action"": ""Final Answer"",
+111:       ""action_input"": ""This is the final answer""
+112:     }
+113:     ```
+114:     """"""
+115:     output, log = get_action_and_input(llm_output)
+116:     assert output == ""This is the final answer""
+117:     assert log == llm_output
+118: 
+119: 
+120: # TODO: add more tests.
+121: # Test: StructuredChatAgent.create_prompt() method.
+122: class TestCreatePrompt:
+123:     # Test: Output should be a ChatPromptTemplate with sys and human messages.
+124:     def test_create_prompt_output(self) -> None:
+125:         prompt = StructuredChatAgent.create_prompt(
+126:             [Tool(name=""foo"", description=""Test tool FOO"", func=lambda x: x)],
+127:         )
+128: 
+129:         assert isinstance(prompt, ChatPromptTemplate)
+130:         assert len(prompt.messages) == 2
+131:         assert isinstance(prompt.messages[0], SystemMessagePromptTemplate)
+132:         assert isinstance(prompt.messages[1], HumanMessagePromptTemplate)
+133: 
+134:     # Test: Format with a single tool.
+135:     def test_system_message_single_tool(self) -> None:
+136:         prompt: Any = StructuredChatAgent.create_prompt(
+137:             [Tool(name=""foo"", description=""Test tool FOO"", func=lambda x: x)],
+138:         )
+139:         actual = prompt.messages[0].prompt.format()
+140: ",107,140,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain/tests/unit_tests/agents/test_structured_chat.py#L120-L121,AI-assisted contextual review by Codex; not human ground truth,SATD,"Defers additional tests for the existing create_prompt method, acknowledging unfinished test coverage work.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+18,c1d1c6796ac5c9904318922732b9614a8148894db37dea3b1d4b0cecfbfb379a,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/indices/knowledge_graph/retrievers.py,313,319,"# TMP/TODO: also filter rel_texts as nodes until we figure out better
+# abstraction
+# TODO(suo): figure out what this does
+# rel_text_nodes = [Node(text=rel_text) for rel_text in rel_texts]
+# for node_processor in self._node_postprocessors:
+#     rel_text_nodes = node_processor.postprocess_nodes(rel_text_nodes)
+# rel_texts = [node.get_content() for node in rel_text_nodes]","        sorted_chunk_indices = sorted_chunk_indices[: self.num_chunks_per_query]
+        sorted_nodes = self._docstore.get_nodes(sorted_chunk_indices)
+
+        # TMP/TODO: also filter rel_texts as nodes until we figure out better
+        # abstraction
+        # TODO(suo): figure out what this does
+        # rel_text_nodes = [Node(text=rel_text) for rel_text in rel_texts]
+        # for node_processor in self._node_postprocessors:
+        #     rel_text_nodes = node_processor.postprocess_nodes(rel_text_nodes)
+        # rel_texts = [node.get_content() for node in rel_text_nodes]
+
+        sorted_nodes_with_scores = []
+        for chunk_idx, node in zip(sorted_chunk_indices, sorted_nodes):",310,322,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/indices/knowledge_graph/retrievers.py#L313-L319,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly defers a better abstraction and understanding of the existing relationship-text processing code.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+19,6b03e7f4c05f269a0d1b97ed2b58b96bdfd1ac711c21bc09d291c3cff64a3548,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/base/embeddings/base.py,26,26,# TODO: change to numpy array,"13:     ConfigDict,
+14:     model_validator,
+15: )
+16: from llama_index.core.callbacks.base import CallbackManager
+17: from llama_index.core.callbacks.schema import CBEventType, EventPayload
+18: from llama_index.core.constants import (
+19:     DEFAULT_EMBED_BATCH_SIZE,
+20: )
+21: from llama_index.core.instrumentation import DispatcherSpanMixin
+22: from llama_index.core.schema import BaseNode, MetadataMode, TransformComponent
+23: from llama_index.core.utils import get_tqdm_iterable
+24: from llama_index.core.async_utils import run_jobs
+25: 
+26: # TODO: change to numpy array
+27: Embedding = List[float]
+28: 
+29: 
+30: from llama_index.core.instrumentation.events.embedding import (
+31:     EmbeddingEndEvent,
+32:     EmbeddingStartEvent,
+33: )
+34: import llama_index.core.instrumentation as instrument
+35: 
+36: dispatcher = instrument.get_dispatcher(__name__)
+37: 
+38: 
+39: class SimilarityMode(str, Enum):
+40:     """"""Modes for similarity/distance.""""""
+41: 
+42:     DEFAULT = ""cosine""
+43:     DOT_PRODUCT = ""dot_product""
+44:     EUCLIDEAN = ""euclidean""
+45: ",13,45,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/base/embeddings/base.py#L26-L26,AI-assisted contextual review by Codex; not human ground truth,uncertain,"Proposes replacing a list representation with a NumPy array, but gives no deficiency or reason establishing a corrective obligation.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+20,a93ad011b64cce87102444fe620d68c6a3a02e5cf0ee504c4207bb46e0065f49,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/prompts/chat.py,1337,1337,# TODO: handle partials,"        Returns:
+            Human-readable representation.
+        """"""
+        # TODO: handle partials
+        return ""\n\n"".join(msg.pretty_repr(html=html) for msg in self.messages)
+
+",1334,1340,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/prompts/chat.py#L1337-L1337,AI-assisted contextual review by Codex; not human ground truth,SATD,Acknowledges that the current prompt representation does not handle partial variables and leaves that handling as corrective work.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+21,5decde3cc0a3e94f210299e99b4bebde1ab5430e4a41840541b090a96d92ba5e,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/retrievers/llama-index-retrievers-duckdb-retriever/llama_index/retrievers/duckdb_retriever/base.py,57,57,# TODO: Add more options for FTS index creation,"44:         database_name: str = "":memory:"",
+45:         table_name: str = ""documents"",
+46:         text_search_config: dict = {
+47:             ""stemmer"": ""english"",
+48:             ""stopwords"": ""english"",
+49:             ""ignore"": r""(\\.|[^a-z])+"",
+50:             ""strip_accents"": True,
+51:             ""lower"": True,
+52:             ""overwrite"": True,
+53:         },
+54:         persist_dir: str = ""./storage"",
+55:         node_id_column: str = ""node_id"",
+56:         text_column: str = ""text"",
+57:         # TODO: Add more options for FTS index creation
+58:         similarity_top_k: int = DEFAULT_SIMILARITY_TOP_K,
+59:         callback_manager: Optional[CallbackManager] = None,
+60:         verbose: bool = False,
+61:     ) -> None:
+62:         self._similarity_top_k = similarity_top_k
+63:         self._callback_manager = callback_manager
+64:         self._verbose = verbose
+65:         self._table_name = table_name
+66:         self._node_id_column = node_id_column
+67:         self._text_column = text_column
+68: 
+69:         # TODO: Check if the vector store already has data
+70: 
+71:         # Create an FTS index on the 'text' column if it doesn't already exist
+72:         if database_name == "":memory:"":
+73:             self._database_path = "":memory:""
+74:         else:
+75:             self._database_path = os.path.join(persist_dir, database_name)
+76: ",44,76,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/retrievers/llama-index-retrievers-duckdb-retriever/llama_index/retrievers/duckdb_retriever/base.py#L57-L57,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Requests additional FTS configuration options without identifying a current defect or implementation compromise.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+22,5a8db7e3f52a024e597c6f917039799c96a0cc1187a0ff9b28636d7e7812031e,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/vectorstores/base.py,711,713,"# This is a temporary workaround to make the similarity search
+# asynchronous. The proper solution is to make the similarity search
+# asynchronous in the vector store implementations.","        Returns:
+            List of `Document` objects selected by maximal marginal relevance.
+        """"""
+        # This is a temporary workaround to make the similarity search
+        # asynchronous. The proper solution is to make the similarity search
+        # asynchronous in the vector store implementations.
+        return await run_in_executor(
+            None,
+            self.max_marginal_relevance_search,",708,716,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/vectorstores/base.py#L711-L713,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly acknowledges a temporary executor-based workaround and defers native async support in vector-store implementations.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+23,463dd55d99dc9562966fcbaa860e0beae8beeade24fe813a520b064101e79f59,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/tests/unit_tests/stubs.py,19,21,"# Please note that the `id` field is assigned AFTER the model is created
+# to workaround an issue with pydantic ignoring the __eq__ method on
+# subclassed strings.","# The code below creates version of pydantic models
+# that will work in unit tests with AnyStr as id field
+
+# Please note that the `id` field is assigned AFTER the model is created
+# to workaround an issue with pydantic ignoring the __eq__ method on
+# subclassed strings.
+
+
+def _any_id_document(**kwargs: Any) -> Document:",16,24,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/tests/unit_tests/stubs.py#L19-L21,AI-assisted contextual review by Codex; not human ground truth,SATD,Documents a required construction-order workaround for a Pydantic equality-handling issue.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+24,4eb395a737fc6c8dd0185027b8890227ee94baf8966b6f73c671a179c0a82d3f,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/llms/function_calling.py,111,111,# TODO: no validation for streaming outputs,"            tool_required=tool_required,
+            **kwargs,
+        )
+        # TODO: no validation for streaming outputs
+        return self.stream_chat(**chat_kwargs)
+
+    async def astream_chat_with_tools(",108,114,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/llms/function_calling.py#L111-L111,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly acknowledges missing validation of current streaming outputs.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+25,166a8f9890f454159b8fe684ba3386b601f778950b3551995a97e2e9e188a79d,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/partners/ollama/tests/integration_tests/chat_models/test_chat_models_standard.py,27,28,"# TODO: update after Ollama implements
+# https://github.com/ollama/ollama/blob/main/docs/openai.md#supported-request-fields","14:     def chat_model_class(self) -> type[ChatOllama]:
+15:         return ChatOllama
+16: 
+17:     @property
+18:     def chat_model_params(self) -> dict:
+19:         return {""model"": DEFAULT_MODEL_NAME}
+20: 
+21:     @property
+22:     def supports_json_mode(self) -> bool:
+23:         return True
+24: 
+25:     @property
+26:     def has_tool_choice(self) -> bool:
+27:         # TODO: update after Ollama implements
+28:         # https://github.com/ollama/ollama/blob/main/docs/openai.md#supported-request-fields
+29:         return False
+30: 
+31:     @property
+32:     def supports_image_inputs(self) -> bool:
+33:         return True
+34: 
+35:     @pytest.mark.xfail(
+36:         reason=(
+37:             ""Will sometime encounter AssertionErrors where tool responses are ""
+38:             ""`'3'` instead of `3`""
+39:         )
+40:     )
+41:     def test_tool_calling(self, model: BaseChatModel) -> None:
+42:         super().test_tool_calling(model)
+43: 
+44:     @pytest.mark.xfail(
+45:         reason=(
+46:             ""Will sometime encounter AssertionErrors where tool responses are ""
+47:             ""`'3'` instead of `3`""",14,47,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/partners/ollama/tests/integration_tests/chat_models/test_chat_models_standard.py#L27-L28,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Records a future capability update conditional on Ollama implementing tool_choice; current unsupported-capability reporting is intentional.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+26,3976c0b444ce7ed87fa08490800c153be5e8e1a04ee21d2af049ce21c8877dfa,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/vector_stores/llama-index-vector-stores-lindorm/llama_index/vector_stores/lindorm/base.py,479,481,"# TODO: FilterCondition can also be 'NOT', but llama_index does not support it yet.
+# https://opensearch.org/docs/latest/query-dsl/compound/bool/
+# post_filter = {""bool"": {""must_not"": filter_list}}","466:             search_query = self._default_approximate_search_query(
+467:                 query_vector=query_embedding,
+468:                 k=k,
+469:                 vector_field=vector_field,
+470:                 nprobe=nprobe,
+471:                 reorder_factor=reorder_factor,
+472:             )
+473:         else:
+474:             if filters.condition == FilterCondition.AND:
+475:                 filter = {""bool"": {""must"": filter_list}}
+476:             elif filters.condition == FilterCondition.OR:
+477:                 filter = {""bool"": {""should"": filter_list}}
+478:             else:
+479:                 # TODO: FilterCondition can also be 'NOT', but llama_index does not support it yet.
+480:                 # https://opensearch.org/docs/latest/query-dsl/compound/bool/
+481:                 # post_filter = {""bool"": {""must_not"": filter_list}}
+482:                 raise ValueError(f""Unsupported filter condition: {filters.condition}"")
+483: 
+484:             search_query = self._search_query_with_filter(
+485:                 query_vector=query_embedding,
+486:                 vector_field=vector_field,
+487:                 k=k,
+488:                 filter=filter,
+489:                 nprobe=nprobe,
+490:                 reorder_factor=reorder_factor,
+491:                 filter_type=filter_type,
+492:             )
+493: 
+494:         return search_query
+495: 
+496:     def _hybrid_search_query(
+497:         self,
+498:         text_field: str,
+499:         query_str: str,
+500:         vector_field: str,",466,500,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-lindorm/llama_index/vector_stores/lindorm/base.py#L479-L481,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly admits that the adapter does not yet support the existing NOT filter condition and currently rejects it.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+27,ac03089b5b291afb0916d25cba8f21a9e15dc4900ca519082bb3f5c25f66c897,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/prompts/base.py,94,96,"# TODO: figure out what variables to pass into each function
+# is it the kwargs specified during query time? just the fixed kwargs?
+# all kwargs?","        # first generate the values for the functions
+        new_kwargs = {}
+        for k, v in function_mappings.items():
+            # TODO: figure out what variables to pass into each function
+            # is it the kwargs specified during query time? just the fixed kwargs?
+            # all kwargs?
+            new_kwargs[k] = v(**kwargs)
+
+        # then, add the fixed variables only if not in new_kwargs already",91,99,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/prompts/base.py#L94-L96,AI-assisted contextual review by Codex; not human ground truth,SATD,Admits unresolved design about which variables to pass while the current implementation passes all kwargs.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+28,8af41b555f288379cfa552504e7e17d5c5ad91f635b442773b42ecdaf044f640,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/vector_stores/llama-index-vector-stores-relyt/llama_index/vector_stores/relyt/base.py,132,133,"# TODO: the more filter type(le, ne, ge ...) will add later, after the base api supported,
+#  now only support eq filter for meta information","119:             )
+120:             for node in nodes
+121:         ]
+122: 
+123:         self._client.insert(records)
+124:         return [node.id_ for node in nodes]
+125: 
+126:     def delete(self, ref_doc_id: str, **delete_kwargs: Any) -> None:
+127:         self._client.delete(meta_contains({""ref_doc_id"": ref_doc_id}))
+128: 
+129:     def drop(self) -> None:
+130:         self._client.drop()
+131: 
+132:     # TODO: the more filter type(le, ne, ge ...) will add later, after the base api supported,
+133:     #  now only support eq filter for meta information
+134:     def query(self, query: VectorStoreQuery, **kwargs: Any) -> VectorStoreQueryResult:
+135:         results = self._client.search(
+136:             embedding=query.query_embedding,
+137:             top_k=query.similarity_top_k,
+138:             filter=(
+139:                 meta_contains(
+140:                     {pair.key: pair.value for pair in query.filters.legacy_filters()}
+141:                 )
+142:                 if query.filters is not None
+143:                 else None
+144:             ),
+145:         )
+146: 
+147:         nodes = [
+148:             metadata_dict_to_node(record.meta, text=record.text)
+149:             for record, _ in results
+150:         ]
+151: 
+152:         return VectorStoreQueryResult(",119,152,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-relyt/llama_index/vector_stores/relyt/base.py#L132-L133,AI-assisted contextual review by Codex; not human ground truth,uncertain,Acknowledges equality-only filtering and defers other operators until the upstream API supports them; optional capability growth versus a current debt obligation is unclear.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+29,54046c397094bfd839734bd84393c36e371dea025859ae642b393806f9812b32,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/data_structs/data_structs.py,182,183,"# TODO: slightly deprecated, should likely be a list or set now
+# mapping from vector store id to node doc_id","class IndexDict(IndexStruct):
+    """"""A simple dictionary of documents.""""""
+
+    # TODO: slightly deprecated, should likely be a list or set now
+    # mapping from vector store id to node doc_id
+    nodes_dict: Dict[str, str] = field(default_factory=dict)
+
+    # TODO: deprecated, not used",179,186,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/data_structs/data_structs.py#L182-L183,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly questions the current deprecated mapping representation and proposes a corrective list/set replacement.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+30,63c8114f4276a10996e9077fa8bbb91b7a13145466c98869d48da810cf203a2e,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/messages/content.py,310,310,# TODO: Consider making fields NotRequired[str] in the future.,"297: 
+298:     Example:
+299:     ```python
+300:     left_chunks = [ToolCallChunk(name=""foo"", args='{""a"":', index=0)]
+301:     right_chunks = [ToolCallChunk(name=None, args=""1}"", index=0)]
+302: 
+303:     (
+304:         AIMessageChunk(content="""", tool_call_chunks=left_chunks)
+305:         + AIMessageChunk(content="""", tool_call_chunks=right_chunks)
+306:     ).tool_call_chunks == [ToolCallChunk(name=""foo"", args='{""a"":1}', index=0)]
+307:     ```
+308:     """"""
+309: 
+310:     # TODO: Consider making fields NotRequired[str] in the future.
+311: 
+312:     type: Literal[""tool_call_chunk""]
+313:     """"""Used for serialization.""""""
+314: 
+315:     id: str | None
+316:     """"""An identifier associated with the tool call.
+317: 
+318:     An identifier is needed to associate a tool call request with a tool
+319:     call result in events when multiple concurrent tool calls are made.
+320:     """"""
+321:     # TODO: Consider making this NotRequired[str] in the future.
+322: 
+323:     name: str | None
+324:     """"""The name of the tool to be called.""""""
+325: 
+326:     args: str | None
+327:     """"""The arguments to the tool call.""""""
+328: 
+329:     index: NotRequired[int | str]",297,329,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/messages/content.py#L310-L310,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Suggests considering a future type-field representation change without admitting a current defect or compromise.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+31,4d570d29aa78ee90cb41391001043eb0c88a399d54a2a0592ba240d6da8631d3,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/readers/llama-index-readers-sec-filings/llama_index/readers/sec_filings/prepline_sec_filings/api/section.py,216,216,"# Some filetypes missing for this library, just hardcode them for now","    if not content_type or content_type == ""application/octet-stream"":
+        content_type = mimetypes.guess_type(str(file.filename))[0]
+
+        # Some filetypes missing for this library, just hardcode them for now
+        if not content_type:
+            if file.filename.endswith("".md""):
+                content_type = ""text/markdown""",213,219,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/readers/llama-index-readers-sec-filings/llama_index/readers/sec_filings/prepline_sec_filings/api/section.py#L216-L216,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly admits hard-coding file types for now to compensate for missing MIME-type support.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+32,e46ec016d9274132d7b19e82d888de058cbe32bdd0b81482a12dff2e81600b71,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/tools/llama-index-tools-yelp/llama_index/tools/yelp/base.py,33,33,# TODO add disclaimer,"20: WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+21: THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+22: """"""
+23: 
+24: from typing import Optional
+25: 
+26: from llama_index.core.schema import Document
+27: from llama_index.core.tools.tool_spec.base import BaseToolSpec
+28: 
+29: 
+30: class YelpToolSpec(BaseToolSpec):
+31:     """"""Yelp tool spec.""""""
+32: 
+33:     # TODO add disclaimer
+34:     spec_functions = [""business_search"", ""business_reviews""]
+35: 
+36:     def __init__(self, api_key: str, client_id: str) -> Document:
+37:         """"""Initialize with parameters.""""""
+38:         from yelpapi import YelpAPI
+39: 
+40:         self.client = YelpAPI(api_key)
+41: 
+42:     def business_search(self, location: str, term: str, radius: Optional[int] = None):
+43:         """"""
+44:         Make a query to Yelp to find businesses given a location to search.
+45: 
+46:         Args:
+47:             Businesses returned in the response may not be strictly within the specified location.
+48:             term (str): Search term, e.g. ""food"" or ""restaurants"", The term may also be the business's name, such as ""Starbucks""
+49:             radius (int): A suggested search radius in meters. This field is used as a suggestion to the search. The actual search radius may be lower than the suggested radius in dense urban areas, and higher in regions of less business density.
+50: 
+51: 
+52:         """"""",20,52,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/tools/llama-index-tools-yelp/llama_index/tools/yelp/base.py#L33-L33,AI-assisted contextual review by Codex; not human ground truth,uncertain,Requests a disclaimer but does not explain its content or whether this is missing required documentation rather than an optional addition.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+33,38bd809c5f902ed6b2154767db48b4b63d799351f8755070b16e0e31aa9681e2,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/messages/utils.py,758,762,"# `Serializable` constructor-envelope wire shape. Detect structurally, map
+# the class name to a known message-type string via a hardcoded
+# allowlist, and recurse with the canonical
+# `{""type"": ..., **kwargs}` shape — no `load()`, no dynamic
+# class instantiation.","                raise NotImplementedError(msg) from e
+            message_ = _create_message_from_message_type(message_type_str, template)
+    elif isinstance(message, dict):
+        # `Serializable` constructor-envelope wire shape. Detect structurally, map
+        # the class name to a known message-type string via a hardcoded
+        # allowlist, and recurse with the canonical
+        # `{""type"": ..., **kwargs}` shape — no `load()`, no dynamic
+        # class instantiation.
+        if (
+            message.get(""lc"") == 1
+            and message.get(""type"") == ""constructor""",755,765,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/messages/utils.py#L758-L762,AI-assisted contextual review by Codex; not human ground truth,non-SATD,"Documents a deliberate security allowlist that avoids caller-selected class instantiation, not an admitted deficiency.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+34,5f0927b99e47e5e5634e90cadbbc655579c8d2ff31129bf86c8eec388b1a339a,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/vector_stores/llama-index-vector-stores-qdrant/llama_index/vector_stores/qdrant/utils.py,42,42,# TODO: compute sparse vectors in batches if max length is exceeded,"29:             ""Could not import transformers library. ""
+30:             'Please install transformers with `pip install ""transformers[torch]""`'
+31:         )
+32: 
+33:     tokenizer = AutoTokenizer.from_pretrained(model_id)
+34:     model = AutoModelForMaskedLM.from_pretrained(model_id)
+35:     if torch.cuda.is_available():
+36:         model = model.to(""cuda"")
+37: 
+38:     def compute_vectors(texts: List[str]) -> BatchSparseEncoding:
+39:         """"""
+40:         Computes vectors from logits and attention mask using ReLU, log, and max operations.
+41:         """"""
+42:         # TODO: compute sparse vectors in batches if max length is exceeded
+43:         tokens = tokenizer(
+44:             texts, truncation=True, padding=True, max_length=512, return_tensors=""pt""
+45:         )
+46:         if torch.cuda.is_available():
+47:             tokens = tokens.to(""cuda"")
+48: 
+49:         output = model(**tokens)
+50:         logits, attention_mask = output.logits, tokens.attention_mask
+51:         relu_log = torch.log(1 + torch.relu(logits))
+52:         weighted_log = relu_log * attention_mask.unsqueeze(-1)
+53:         tvecs, _ = torch.max(weighted_log, dim=1)
+54: 
+55:         # extract the vectors that are non-zero and their indices
+56:         indices = []
+57:         vecs = []
+58:         for batch in tvecs:
+59:             indices.append(batch.nonzero(as_tuple=True)[0].tolist())
+60:             vecs.append(batch[indices[-1]].tolist())
+61: ",29,61,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-qdrant/llama_index/vector_stores/qdrant/utils.py#L42-L42,AI-assisted contextual review by Codex; not human ground truth,SATD,"Defers handling input beyond the current 512-token limit; the implementation truncates long inputs, connecting the TODO to a current limitation.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+35,dd18c61654052b4ecdc977ea2f41a8753cb3182e461b270e69990a918b03e546,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/vector_stores/types.py,88,88,# TODO add more conditions,"75:     ANY = ""any""  # Contains any (array of strings)
+76:     ALL = ""all""  # Contains all (array of strings)
+77:     TEXT_MATCH = ""text_match""  # full text match (allows you to search for a specific substring, token or phrase within the text field)
+78:     TEXT_MATCH_INSENSITIVE = (
+79:         ""text_match_insensitive""  # full text match (case insensitive)
+80:     )
+81:     CONTAINS = ""contains""  # metadata array contains value (string or number)
+82:     IS_EMPTY = ""is_empty""  # the field is not exist or empty (null or empty array)
+83: 
+84: 
+85: class FilterCondition(str, Enum):
+86:     """"""Vector store filter conditions to combine different filters.""""""
+87: 
+88:     # TODO add more conditions
+89:     AND = ""and""
+90:     OR = ""or""
+91:     NOT = ""not""  # negates the filter condition
+92: 
+93: 
+94: class MetadataFilter(BaseModel):
+95:     r""""""
+96:     Comprehensive metadata filter for vector stores to support more operators.
+97: 
+98:     Value uses Strict types, as int, float and str are compatible types and were all
+99:     converted to string before.
+100: 
+101:     See: https://docs.pydantic.dev/latest/usage/types/#strict-types
+102:     """"""
+103: 
+104:     key: str
+105:     value: Optional[
+106:         Union[
+107:             StrictInt,",75,107,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/vector_stores/types.py#L88-L88,AI-assisted contextual review by Codex; not human ground truth,non-SATD,"Requests additional filter conditions without identifying a fault in the existing AND, OR and NOT conditions.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+36,75d1a741dbe5adcada1e9e8cb981de1aef00c3d396895c4ace5d1eb5dab1e7df,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/partners/mistralai/langchain_mistralai/chat_models.py,799,799,# TODO: handle retries and max_concurrency,"                timeout=self.timeout,
+                verify=global_ssl_context,
+            )
+        # TODO: handle retries and max_concurrency
+        if not self.async_client:
+            self.async_client = httpx.AsyncClient(
+                base_url=base_url_str,",796,802,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/partners/mistralai/langchain_mistralai/chat_models.py#L799-L799,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly defers handling existing retry and concurrency controls when creating the async client.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+37,47ba6af3c749250678b1fd6eb445b48e3696991c3f42f1154a35c7048176d360,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/instrumentation/events/synthesis.py,98,99,"# TODO: consumes the first chunk of generators??
+# response: RESPONSE_TEXT_TYPE","82:         message_chunks (List[ChatMessage]): List of chat message chunks.
+83: 
+84:     """"""
+85: 
+86:     query_str: str
+87:     message_chunks: List[ChatMessage]
+88: 
+89:     @classmethod
+90:     def class_name(cls) -> str:
+91:         """"""Class name.""""""
+92:         return ""GetMessageResponseStartEvent""
+93: 
+94: 
+95: class GetMessageResponseEndEvent(BaseEvent):
+96:     """"""GetMessageResponseEndEvent.""""""
+97: 
+98:     # TODO: consumes the first chunk of generators??
+99:     # response: RESPONSE_TEXT_TYPE
+100: 
+101:     @classmethod
+102:     def class_name(cls) -> str:
+103:         """"""Class name.""""""
+104:         return ""GetMessageResponseEndEvent""",82,104,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/instrumentation/events/synthesis.py#L98-L99,AI-assisted contextual review by Codex; not human ground truth,uncertain,"Questions generator consumption and leaves the response field disabled, but does not establish whether the suspected bug remains or what repair is required.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+38,0563b120f730a6c26b763c3cf67d49a45090f8e8e402490f9323a62d316aad73,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/program/llama-index-program-evaporate/llama_index/program/evaporate/extractor.py,291,291,# TODO: replace with new response synthesis module,"278:         return sorted_fields[:fields_top_k]
+279: 
+280:     def extract_fn_from_nodes(
+281:         self, nodes: List[BaseNode], field: str, expected_output: Optional[Any] = None
+282:     ) -> str:
+283:         """"""Extract function from nodes.""""""
+284:         # avoid circular import
+285:         from llama_index.core.response_synthesizers import (
+286:             ResponseMode,
+287:             get_response_synthesizer,
+288:         )
+289: 
+290:         function_field = get_function_field_from_attribute(field)
+291:         # TODO: replace with new response synthesis module
+292: 
+293:         if expected_output is not None:
+294:             expected_output_str = (
+295:                 f""{self._expected_output_prefix_tmpl}{expected_output!s}\n""
+296:             )
+297:         else:
+298:             expected_output_str = """"
+299: 
+300:         qa_prompt = self._fn_generate_prompt.partial_format(
+301:             attribute=field,
+302:             function_field=function_field,
+303:             expected_output_str=expected_output_str,
+304:         )
+305: 
+306:         response_synthesizer = get_response_synthesizer(
+307:             llm=self._llm,
+308:             text_qa_template=qa_prompt,
+309:             response_mode=ResponseMode.TREE_SUMMARIZE,
+310:         )",278,310,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/program/llama-index-program-evaporate/llama_index/program/evaporate/extractor.py#L291-L291,AI-assisted contextual review by Codex; not human ground truth,uncertain,"Requests a new response-synthesis module, but the surrounding implementation already invokes a response synthesizer; the comment may be stale.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+39,a6c622050a516ca3ee4690ccdd9d3baacf5db1b65a7451aa395c8bd95cbfb96d,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/tests/unit_tests/runnables/test_runnable_events_v2.py,1917,1919,"# Attention: for the tests use an Any type to work-around a pydantic issue
+# where it re-instantiates a list, so mutating the list doesn't end up mutating
+# the content in the store!","    class InMemoryHistory(BaseChatMessageHistory, BaseModel):
+        """"""In memory implementation of chat message history.""""""
+
+        # Attention: for the tests use an Any type to work-around a pydantic issue
+        # where it re-instantiates a list, so mutating the list doesn't end up mutating
+        # the content in the store!
+
+        # Using Any type here rather than list[BaseMessage] due to pydantic issue!
+        messages: Any",1914,1922,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/tests/unit_tests/runnables/test_runnable_events_v2.py#L1917-L1919,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly weakens a test-history field to Any to work around a Pydantic issue that otherwise breaks expected mutation behavior.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+40,9b910fb14bb458b79f6ea07b0dee61930488cd3ab46a2b54dc6e436129c59e53,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/vectorstores/base.py,619,621,"# This is a temporary workaround to make the similarity search
+# asynchronous. The proper solution is to make the similarity search
+# asynchronous in the vector store implementations.","        Returns:
+            List of `Document` objects most similar to the query.
+        """"""
+        # This is a temporary workaround to make the similarity search
+        # asynchronous. The proper solution is to make the similarity search
+        # asynchronous in the vector store implementations.
+        return await run_in_executor(None, self.similarity_search, query, k=k, **kwargs)
+
+    def similarity_search_by_vector(",616,624,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/vectorstores/base.py#L619-L621,AI-assisted contextual review by Codex; not human ground truth,SATD,Acknowledges a temporary async executor workaround and identifies a proper native async implementation as the deferred solution.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+41,1cbd03a69e9742aeb08743791123a80b5ccf9387f9a35867be9205ee476d437e,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/graph_stores/llama-index-graph-stores-nebula/llama_index/graph_stores/nebula/nebula_property_graph.py,75,78,"# Hard coded default schema, which is union of
+# document metadata: `file_path` STRING, `file_name` STRING, `file_type` STRING, `file_size` INT, `creation_date` STRING, `last_modified_date` STRING
+# llamaindex_node: `_node_content` STRING, `_node_type` STRING, `document_id` STRING, `doc_id` STRING, `ref_doc_id` STRING
+# introduced by PropertyGraph: `triplet_source_id` STRING","CREATE EDGE INDEX IF NOT EXISTS idx_meta__rel_label__ ON `__meta__rel_label__`(`label`(256));
+""""""
+
+# Hard coded default schema, which is union of
+# document metadata: `file_path` STRING, `file_name` STRING, `file_type` STRING, `file_size` INT, `creation_date` STRING, `last_modified_date` STRING
+# llamaindex_node: `_node_content` STRING, `_node_type` STRING, `document_id` STRING, `doc_id` STRING, `ref_doc_id` STRING
+# introduced by PropertyGraph: `triplet_source_id` STRING
+DEFAULT_PROPS_SCHEMA = ""`file_path` STRING, `file_name` STRING, `file_type` STRING, `file_size` INT, `creation_date` STRING, `last_modified_date` STRING, `_node_content` STRING, `_node_type` STRING, `document_id` STRING, `doc_id` STRING, `ref_doc_id` STRING, `triplet_source_id` STRING""
+
+",72,81,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/graph_stores/llama-index-graph-stores-nebula/llama_index/graph_stores/nebula/nebula_property_graph.py#L75-L78,AI-assisted contextual review by Codex; not human ground truth,non-SATD,"Describes the contents of a fixed default schema without admitting a shortcut, deficiency or deferred corrective work.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+42,f9779816a477968b0cb74b97aee4fc1e4fb35e01d613e36a663e689a72114c21,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/llms/llama-index-llms-openai/llama_index/llms/openai/utils.py,821,821,# hardcode to ensure developer messages are used,"808:     messages: Sequence[ChatMessage],
+809:     drop_none: bool = False,
+810:     model: Optional[str] = None,
+811:     is_responses_api: bool = False,
+812:     store: bool = False,
+813: ) -> Union[List[ChatCompletionMessageParam], str]:
+814:     """"""Convert generic messages to OpenAI message dicts.""""""
+815:     if is_responses_api:
+816:         final_message_dicts = []
+817:         for message in messages:
+818:             message_dicts = to_openai_responses_message_dict(
+819:                 message,
+820:                 drop_none=drop_none,
+821:                 model=""o3-mini"",  # hardcode to ensure developer messages are used
+822:                 store=store,
+823:             )
+824:             if isinstance(message_dicts, list):
+825:                 final_message_dicts.extend(message_dicts)
+826:             elif isinstance(message_dicts, str):
+827:                 final_message_dicts.append({""role"": ""user"", ""content"": message_dicts})
+828:             else:
+829:                 final_message_dicts.append(message_dicts)
+830: 
+831:         # If there is only one message, and it is a user message, return the content string directly
+832:         # .get() because not every item carries a role: a lone tool message serializes to a
+833:         # function_call_output, which has none.
+834:         if (
+835:             len(final_message_dicts) == 1
+836:             and final_message_dicts[0].get(""role"") == ""user""
+837:             and isinstance(final_message_dicts[0].get(""content""), str)
+838:         ):
+839:             return final_message_dicts[0][""content""]
+840: ",808,840,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/llms/llama-index-llms-openai/llama_index/llms/openai/utils.py#L821-L821,AI-assisted contextual review by Codex; not human ground truth,uncertain,A fixed model name selects developer-message formatting; the comment does not establish whether this is an admitted compromise or intentional adapter behavior.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+43,338e7cef529fadd67a26ed291f00d53febd950cc2cdcc9a5720238ec6035a8ff,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/indices/multi_modal/base.py,170,170,# kludge. They don't actually inherit from these types.,"    ) -> BaseChatEngine:
+        llm = llm or Settings.llm
+        assert isinstance(llm, (BaseLLM, MultiModalLLM))
+        llm = cast(LLM, llm)  # kludge. They don't actually inherit from these types.
+        class_name = llm.class_name()
+        if ""multi"" not in class_name:
+            logger.warning(",167,173,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/indices/multi_modal/base.py#L170-L170,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly calls the cast a kludge and acknowledges that the objects do not actually inherit from the asserted types.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+44,3ea511cad36e2475c6aad6e56ad1dc0783af04fc84bb88298485fc9c7555ce1e,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/langchain/langchain_classic/smith/evaluation/runner_utils.py,533,533,# TODO: Create a default helpfulness evaluator,"520:             run_type = ""chain""
+521:             chain = llm_or_chain_factory()
+522:             run_inputs = chain.input_keys if isinstance(chain, Chain) else None
+523:             run_outputs = chain.output_keys if isinstance(chain, Chain) else None
+524:         run_evaluators = _load_run_evaluators(
+525:             evaluation,
+526:             run_type,
+527:             data_type,
+528:             list(examples[0].outputs) if examples[0].outputs else None,
+529:             run_inputs,
+530:             run_outputs,
+531:         )
+532:     else:
+533:         # TODO: Create a default helpfulness evaluator
+534:         run_evaluators = None
+535:     return run_evaluators
+536: 
+537: 
+538: def _determine_input_key(
+539:     config: smith_eval.RunEvalConfig,
+540:     run_inputs: list[str] | None,
+541: ) -> str | None:
+542:     input_key = None
+543:     if config.input_key:
+544:         input_key = config.input_key
+545:         if run_inputs and input_key not in run_inputs:
+546:             logger.warning(
+547:                 ""Input key %s not in chain's specified input keys %s. ""
+548:                 ""Evaluation behavior may be undefined."",
+549:                 input_key,
+550:                 run_inputs,
+551:             )
+552:     elif run_inputs and len(run_inputs) == 1:",520,552,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain/langchain_classic/smith/evaluation/runner_utils.py#L533-L533,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Proposes a future default evaluator; the current optional-evaluation branch supplies None and no defect or compromise is admitted.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+45,afa727e8ccab1144aa285aba4b863458739895f615cbb31ed9342634e80ade0a,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/readers/llama-index-readers-sec-filings/llama_index/readers/sec_filings/utils.py,183,184,"# Work around bug where incorrect filings are sometimes included.
+# For example, AAPL 8-K searches include N-Q entries.","                    continue
+                if is_amend:
+                    num_filings_to_download += 1
+                # Work around bug where incorrect filings are sometimes included.
+                # For example, AAPL 8-K searches include N-Q entries.
+                if not is_amend and hit_filing_type != filing_type:
+                    continue
+",180,187,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/readers/llama-index-readers-sec-filings/llama_index/readers/sec_filings/utils.py#L183-L184,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly acknowledges a bug that includes incorrect filings and a compensating filter workaround.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+46,d6c3991b195b4a60ab28d2dec840460566d6744ace63bd4876afef25d4118080,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/tracers/event_stream.py,567,568,"# Work-around Runnable core code not sending input in some
+# cases.","
+        data: EventData = {}
+
+        # Work-around Runnable core code not sending input in some
+        # cases.
+        if inputs != {""input"": """"}:
+            data[""input""] = inputs
+            kwargs[""inputs""] = inputs",564,571,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/tracers/event_stream.py#L567-L568,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly compensates for core Runnable code failing to send inputs in some cases.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+47,31d3846ac3b46817ed73dacd1764323e6f56addaffab9309582d3fe70a7f21c1,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/callbacks/manager.py,2793,2796,"# We want to get the callback manager for the parent run.
+# This is a work-around for now to be able to dispatch adhoc events from
+# within a tool or a lambda and have the metadata events associated
+# with the parent run rather than have a new run id generated for each.","
+    config = ensure_config(config)
+    callback_manager = get_callback_manager_for_config(config)
+    # We want to get the callback manager for the parent run.
+    # This is a work-around for now to be able to dispatch adhoc events from
+    # within a tool or a lambda and have the metadata events associated
+    # with the parent run rather than have a new run id generated for each.
+    if callback_manager.parent_run_id is None:
+        msg = (
+            ""Unable to dispatch an adhoc event without a parent run id.""",2790,2799,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/callbacks/manager.py#L2793-L2796,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly describes a provisional parent-run dispatch workaround; this is a separate source location from the analogous async comment.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+48,a3a4b0ef528d0c624da4c206ed0347f2fce04b0a8a3cd9c7c2475cf6b51bf6cd,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/messages/utils.py,697,703,"# Map of class names emitted in the `Serializable` constructor-envelope
+# (`{""lc"": 1, ""type"": ""constructor"", ""id"": [..., ""<ClassName>""],
+# ""kwargs"": {...}}`) to the message-type strings
+# `_create_message_from_message_type` accepts. Read by
+# `_convert_to_message`'s dict branch when unpacking that wire shape.
+# Kept as a hardcoded allowlist of strings rather than a class registry
+# lookup so dispatch never resolves to a class chosen by the caller.","    return message
+
+
+# Map of class names emitted in the `Serializable` constructor-envelope
+# (`{""lc"": 1, ""type"": ""constructor"", ""id"": [..., ""<ClassName>""],
+# ""kwargs"": {...}}`) to the message-type strings
+# `_create_message_from_message_type` accepts. Read by
+# `_convert_to_message`'s dict branch when unpacking that wire shape.
+# Kept as a hardcoded allowlist of strings rather than a class registry
+# lookup so dispatch never resolves to a class chosen by the caller.
+_LC_CONSTRUCTOR_NAME_TO_TYPE: dict[str, str] = {
+    ""HumanMessage"": ""human"",
+    ""HumanMessageChunk"": ""human"",",694,706,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/messages/utils.py#L697-L703,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Explains an intentional security allowlist that prevents caller-controlled class resolution; hardcoding alone is not an admission of debt.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+49,5ce62bc16b5278a4766f1e924a8a873d8224ba8abc6a8f135b83b6be11482fb2,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/vectorstores/base.py,652,654,"# This is a temporary workaround to make the similarity search
+# asynchronous. The proper solution is to make the similarity search
+# asynchronous in the vector store implementations.","        Returns:
+            List of `Document` objects most similar to the query vector.
+        """"""
+        # This is a temporary workaround to make the similarity search
+        # asynchronous. The proper solution is to make the similarity search
+        # asynchronous in the vector store implementations.
+        return await run_in_executor(
+            None, self.similarity_search_by_vector, embedding, k=k, **kwargs
+        )",649,657,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/vectorstores/base.py#L652-L654,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly describes the executor-based async bridge as temporary and identifies native async behavior as the proper solution.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+50,e3fa4fb83701354636fc412984bf3122b868b8fba1c5460488ac385aaec3caaf,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/partners/openai/tests/unit_tests/chat_models/test_responses_stream.py,1201,1203,"# `in_memory` must validate cleanly: no fallback to the non-validating
+# construct. Otherwise this test would pass even if the SDK rejected the
+# value, giving false confidence in the removed normalization workaround.","            full = chunk if full is None else full + chunk
+    assert isinstance(full, AIMessageChunk)
+    assert full.id == ""resp_123""
+    # `in_memory` must validate cleanly: no fallback to the non-validating
+    # construct. Otherwise this test would pass even if the SDK rejected the
+    # value, giving false confidence in the removed normalization workaround.
+    assert ""falling back to non-validating construct"" not in caplog.text
+    # The completed event drives usage/metadata aggregation, so assert it
+    # survived coercion when that branch is exercised.",1198,1206,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/partners/openai/tests/unit_tests/chat_models/test_responses_stream.py#L1201-L1203,AI-assisted contextual review by Codex; not human ground truth,non-SATD,"Describes a removed normalization workaround and regression assertions ensuring its removal remains valid, not an outstanding workaround.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+51,ba69026b24b0b4ec238d245dac9c7801b24811231897e1fd9055cd96e55b4a27,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/tools/ondemand_loader_tool.py,161,161,# TODO: add query kwargs,"1: """"""
+2: Ad-hoc data loader tool.
+3: 
+4: Tool that wraps any data loader, and is able to load data on-demand.
+5: 
+6: """"""
+7: 
+8: from typing import Any, Callable, Dict, List, Optional, Tuple, Type
+9: 
+10: from llama_index.core.bridge.pydantic import BaseModel
+11: from llama_index.core.indices.base import BaseIndex
+12: from llama_index.core.indices.vector_store import VectorStoreIndex
+13: from llama_index.core.readers.base import BaseReader
+14: from llama_index.core.schema import Document
+15: from llama_index.core.tools.function_tool import FunctionTool
+16: from llama_index.core.tools.types import AsyncBaseTool, ToolMetadata, ToolOutput
+17: from llama_index.core.tools.utils import create_schema_from_function
+18: 
+19: 
+20: class OnDemandLoaderTool(AsyncBaseTool):
+21:     """"""
+22:     On-demand data loader tool.
+23: 
+24:     Loads data with by calling the provided loader function,
+25:     stores in index, and queries for relevant data with a
+26:     natural language query string.
+27: 
+28:     """"""
+29: 
+30:     def __init__(
+31:         self,
+32:         loader: Callable[..., List[Document]],
+33:         index_cls: Type[BaseIndex],
+34:         index_kwargs: Dict,
+35:         metadata: ToolMetadata,
+36:         use_query_str_in_loader: bool = False,
+37:         query_str_kwargs_key: str = ""query_str"",
+38:     ) -> None:
+39:         """"""Init params.""""""
+40:         self._loader = loader
+41:         self._index_cls = index_cls
+42:         self._index_kwargs = index_kwargs
+43:         self._use_query_str_in_loader = use_query_str_in_loader
+44:         self._metadata = metadata
+45:         self._query_str_kwargs_key = query_str_kwargs_key
+46: 
+47:     @property
+48:     def metadata(self) -> ToolMetadata:
+49:         return self._metadata
+50: 
+51:     @classmethod
+52:     def from_defaults(
+53:         cls,
+54:         reader: BaseReader,
+55:         index_cls: Optional[Type[BaseIndex]] = None,
+56:         index_kwargs: Optional[Dict] = None,
+57:         use_query_str_in_loader: bool = False,
+58:         query_str_kwargs_key: str = ""query_str"",
+59:         name: Optional[str] = None,
+60:         description: Optional[str] = None,
+61:         fn_schema: Optional[Type[BaseModel]] = None,
+62:     ) -> ""OnDemandLoaderTool"":
+63:         """"""From defaults.""""""
+64:         # NOTE: fn_schema should be specified if you want to use as langchain Tool
+65: 
+66:         index_cls = index_cls or VectorStoreIndex
+67:         index_kwargs = index_kwargs or {}
+68:         if description is None:
+69:             description = f""Tool to load data from {reader.__class__.__name__}""
+70:         if fn_schema is None:
+71:             fn_schema = create_schema_from_function(
+72:                 name or ""LoadData"",
+73:                 reader.load_data,
+74:                 [(query_str_kwargs_key, str, None)],
+75:             )
+76: 
+77:         metadata = ToolMetadata(name=name, description=description, fn_schema=fn_schema)
+78:         return cls(
+79:             loader=reader.load_data,
+80:             index_cls=index_cls,
+81:             index_kwargs=index_kwargs,
+82:             use_query_str_in_loader=use_query_str_in_loader,
+83:             query_str_kwargs_key=query_str_kwargs_key,
+84:             metadata=metadata,
+85:         )
+86: 
+87:     @classmethod
+88:     def from_tool(
+89:         cls,
+90:         tool: FunctionTool,
+91:         index_cls: Optional[Type[BaseIndex]] = None,
+92:         index_kwargs: Optional[Dict] = None,
+93:         use_query_str_in_loader: bool = False,
+94:         query_str_kwargs_key: str = ""query_str"",
+95:         name: Optional[str] = None,
+96:         description: Optional[str] = None,
+97:         return_direct: bool = False,
+98:         fn_schema: Optional[Type[BaseModel]] = None,
+99:     ) -> ""OnDemandLoaderTool"":
+100:         """"""From defaults.""""""
+101:         # NOTE: fn_schema should be specified if you want to use as langchain Tool
+102: 
+103:         index_cls = index_cls or VectorStoreIndex
+104:         index_kwargs = index_kwargs or {}
+105:         if description is None:
+106:             description = f""Tool to load data from {tool.__class__.__name__}""
+107:         if fn_schema is None:
+108:             fn_schema = create_schema_from_function(
+109:                 name or ""LoadData"", tool._fn, [(query_str_kwargs_key, str, None)]
+110:             )
+111:         metadata = ToolMetadata(
+112:             name=name,
+113:             description=description,
+114:             fn_schema=fn_schema,
+115:             return_direct=return_direct,
+116:         )
+117:         return cls(
+118:             loader=tool._fn,
+119:             index_cls=index_cls,
+120:             index_kwargs=index_kwargs,
+121:             use_query_str_in_loader=use_query_str_in_loader,
+122:             query_str_kwargs_key=query_str_kwargs_key,
+123:             metadata=metadata,
+124:         )
+125: 
+126:     def _parse_args(self, *args: Any, **kwargs: Any) -> Tuple[str, List[Document]]:
+127:         if self._query_str_kwargs_key not in kwargs:
+128:             raise ValueError(
+129:                 ""Missing query_str in kwargs with parameter name: ""
+130:                 f""{self._query_str_kwargs_key}""
+131:             )
+132:         if self._use_query_str_in_loader:
+133:             query_str = kwargs[self._query_str_kwargs_key]
+134:         else:
+135:             query_str = kwargs.pop(self._query_str_kwargs_key)
+136: 
+137:         docs = self._loader(*args, **kwargs)
+138: 
+139:         return query_str, docs
+140: 
+141:     def call(self, *args: Any, **kwargs: Any) -> ToolOutput:
+142:         """"""Call.""""""
+143:         query_str, docs = self._parse_args(*args, **kwargs)
+144: 
+145:         index = self._index_cls.from_documents(docs, **self._index_kwargs)
+146:         # TODO: add query kwargs
+147:         query_engine = index.as_query_engine()
+148:         response = query_engine.query(query_str)
+149:         return ToolOutput(
+150:             content=str(response),
+151:             tool_name=self.metadata.get_name(),
+152:             raw_input={""query"": query_str},
+153:             raw_output=response,
+154:         )
+155: 
+156:     async def acall(self, *args: Any, **kwargs: Any) -> ToolOutput:
+157:         """"""Async Call.""""""
+158:         query_str, docs = self._parse_args(*args, **kwargs)
+159: 
+160:         index = self._index_cls.from_documents(docs, **self._index_kwargs)
+161:         # TODO: add query kwargs
+162:         query_engine = index.as_query_engine()
+163:         response = await query_engine.aquery(query_str)
+164:         return ToolOutput(
+165:             content=str(response),
+166:             tool_name=self.metadata.get_name(),
+167:             raw_input={""query"": query_str},
+168:             raw_output=response,
+169:         )",1,169,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/tools/ondemand_loader_tool.py#L161-L161,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Proposes additional query configuration; the surrounding kwargs currently belong to the loader and the comment states no malfunction or compromise.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+52,92b237e217f485f5bf822c2a6f6df67465974ef86dd6a058fc2c8d1331990856,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/graph_stores/llama-index-graph-stores-nebula/llama_index/graph_stores/nebula/nebula_property_graph.py,666,666,# TODO: Add all numeric types,"653:                                 else """"
+654:                             )
+655:                         else:  # If less than 10 possible values return all
+656:                             example = (
+657:                                 (
+658:                                     ""Available options: ""
+659:                                     f""{[clean_string_values(el) for el in prop['values']]}""
+660:                                 )
+661:                                 if prop[""values""]
+662:                                 else """"
+663:                             )
+664: 
+665:                     elif prop[""type""] in [
+666:                         # TODO: Add all numeric types
+667:                         ""int64"",
+668:                         ""int32"",
+669:                         ""int16"",
+670:                         ""int8"",
+671:                         ""uint64"",
+672:                         ""uint32"",
+673:                         ""uint16"",
+674:                         ""uint8"",
+675:                         ""date"",
+676:                         ""datetime"",
+677:                         ""timestamp"",
+678:                         ""float"",
+679:                         ""double"",
+680:                     ]:
+681:                         if prop.get(""min"") is not None:
+682:                             example = f""Min: {prop['min']}, Max: {prop['max']}""
+683:                         else:
+684:                             example = (
+685:                                 f'Example: ""{prop[""values""][0]}""'",653,685,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/graph_stores/llama-index-graph-stores-nebula/llama_index/graph_stores/nebula/nebula_property_graph.py#L666-L666,AI-assisted contextual review by Codex; not human ground truth,uncertain,Requests all numeric types while the implementation already lists many integer and floating-point types; no omitted required type is identified.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+53,daad303e580caf64853c2149057317e1d0f3cbf286859341d14198ea0e16a0ff,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/vector_stores/utils.py,196,196,# TODO: Deprecated conversion functions,"183:         if filter_condition == FilterCondition.AND:
+184:             return all(filter_matches_list)
+185:         if filter_condition == FilterCondition.OR:
+186:             return any(filter_matches_list)
+187:         if filter_condition == FilterCondition.NOT:
+188:             # Match when none of the filters match.
+189:             return not any(filter_matches_list)
+190: 
+191:         raise ValueError(f""Invalid filter condition: {filter_condition}"")
+192: 
+193:     return filter_fn
+194: 
+195: 
+196: # TODO: Deprecated conversion functions
+197: def legacy_metadata_dict_to_node(
+198:     metadata: dict, text_key: str = DEFAULT_TEXT_KEY
+199: ) -> Tuple[dict, dict, dict]:
+200:     """"""Common logic for loading Node data from metadata dict.""""""
+201:     # make a copy first
+202:     if metadata is None:
+203:         metadata = {}
+204:     else:
+205:         metadata = metadata.copy()
+206: 
+207:     # load node_info from json string
+208:     node_info_str = metadata.pop(""node_info"", """")
+209:     if node_info_str == """":
+210:         node_info = {}
+211:     else:
+212:         node_info = json.loads(node_info_str)
+213: 
+214:     # load relationships from json string
+215:     relationships_str = metadata.pop(""relationships"", """")",183,215,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/vector_stores/utils.py#L196-L196,AI-assisted contextual review by Codex; not human ground truth,non-SATD,Labels legacy conversion functions as deprecated but specifies no outstanding corrective work; deprecation and a TODO token alone are insufficient.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+54,12b86ad749b0db07bc694c6d4a3cf1302409f8c661c40b866abf159a9d92006c,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/readers/llama-index-readers-sec-filings/llama_index/readers/sec_filings/prepline_sec_filings/sec_document.py,215,217,"# NOTE(yuming): we use doc after next_section_toc instead of after toc
+# to workaround an issue where the TOC grabbed too many elements by
+# starting to parse after the section matched in the TOC","            # NOTE(yuming): fail to find the section title in TOC
+            return []
+
+        # NOTE(yuming): we use doc after next_section_toc instead of after toc
+        # to workaround an issue where the TOC grabbed too many elements by
+        # starting to parse after the section matched in the TOC
+        doc_after_section_toc = self.after_element(
+            next_section_toc if next_section_toc else section_toc
+        )",212,220,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/readers/llama-index-readers-sec-filings/llama_index/readers/sec_filings/prepline_sec_filings/sec_document.py#L215-L217,AI-assisted contextual review by Codex; not human ground truth,SATD,Explicitly acknowledges a table-of-contents parsing issue and a compensating starting-position workaround.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+55,a37f01cb651db56d613d77a482585f68d101c46fddda785a310ad7e48cc3290f,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/tests/unit_tests/language_models/chat_models/test_cache.py,238,241,"# RACE CONDITION -- note behavior is different from async
+# Now, reset cache and test the race condition
+# For now we just hard-code the result, if this changes
+# we can investigate further","225:         chat_model = FakeListChatModel(
+226:             cache=True, responses=[""hello"", ""goodbye"", ""meow"", ""woof""]
+227:         )
+228:         results = chat_model.batch([""first prompt"", ""second prompt""])
+229:         # These may be in any order
+230:         assert {results[0].content, results[1].content} == {""hello"", ""goodbye""}
+231: 
+232:         # Now try with the same prompt
+233:         results = chat_model.batch([""first prompt"", ""first prompt""])
+234:         # These could be either ""hello"" or ""goodbye"" and should be identical
+235:         assert results[0].content == results[1].content
+236:         assert {results[0].content, results[1].content}.issubset({""hello"", ""goodbye""})
+237: 
+238:         # RACE CONDITION -- note behavior is different from async
+239:         # Now, reset cache and test the race condition
+240:         # For now we just hard-code the result, if this changes
+241:         # we can investigate further
+242:         global_cache = InMemoryCache()
+243:         set_llm_cache(global_cache)
+244:         assert global_cache._cache == {}
+245:         results = chat_model.batch(
+246:             [
+247:                 ""prompt"",
+248:                 ""prompt"",
+249:             ]
+250:         )
+251:         assert {results[0].content, results[1].content} == {""meow""}
+252:     finally:
+253:         set_llm_cache(None)
+254: 
+255: 
+256: @pytest.mark.xfail(reason=""Abstraction does not support caching for streaming yet."")
+257: def test_global_cache_stream() -> None:
+258:     """"""Test streaming.""""""
+259:     global_cache = InMemoryCache()
+260:     try:",225,260,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/tests/unit_tests/language_models/chat_models/test_cache.py#L238-L241,AI-assisted contextual review by Codex; not human ground truth,SATD,"Acknowledges a race-condition test whose expected result is hard-coded for now, postponing investigation if behavior changes.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+56,51e56a70cabacda5123d22d04c24d161b0fb21c126661a4de9bf0f0cd7d588c6,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/data_structs/table.py,33,33,# TODO: consolidate with IndexStructType,"1: """"""Struct store schema.""""""
+2: 
+3: from dataclasses import dataclass, field
+4: from typing import Any, Dict
+5: 
+6: from dataclasses_json import DataClassJsonMixin
+7: from llama_index.core.data_structs.data_structs import IndexStruct
+8: from llama_index.core.data_structs.struct_type import IndexStructType
+9: 
+10: 
+11: @dataclass
+12: class StructDatapoint(DataClassJsonMixin):
+13:     """"""Struct outputs.""""""
+14: 
+15:     # map from field name to StructValue
+16:     fields: Dict[str, Any]
+17: 
+18: 
+19: @dataclass
+20: class BaseStructTable(IndexStruct):
+21:     """"""Struct outputs.""""""
+22: 
+23: 
+24: @dataclass
+25: class SQLStructTable(BaseStructTable):
+26:     """"""SQL struct outputs.""""""
+27: 
+28:     context_dict: Dict[str, str] = field(default_factory=dict)
+29: 
+30:     @classmethod
+31:     def get_type(cls) -> IndexStructType:
+32:         """"""Get type.""""""
+33:         # TODO: consolidate with IndexStructType
+34:         return IndexStructType.SQL
+35: 
+36: 
+37: @dataclass
+38: class PandasStructTable(BaseStructTable):
+39:     """"""Pandas struct outputs.""""""
+40: 
+41:     @classmethod
+42:     def get_type(cls) -> IndexStructType:
+43:         """"""Get type.""""""
+44:         return IndexStructType.PANDAS",1,44,https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/data_structs/table.py#L33-L33,AI-assisted contextual review by Codex; not human ground truth,uncertain,"Defers consolidation with IndexStructType, but the code already returns that enum and the remaining deficiency is unspecified.",Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
+57,74b0ae1abcc48ae9445359fa52232b8b490738e8d5c3fa7132211db6090275b3,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/tests/unit_tests/runnables/test_runnable_events_v1.py,1971,1973,"# Attention: for the tests use an Any type to work-around a pydantic issue
+# where it re-instantiates a list, so mutating the list doesn't end up mutating
+# the content in the store!","    class InMemoryHistory(BaseChatMessageHistory, BaseModel):
+        """"""In memory implementation of chat message history.""""""
+
+        # Attention: for the tests use an Any type to work-around a pydantic issue
+        # where it re-instantiates a list, so mutating the list doesn't end up mutating
+        # the content in the store!
+
+        # Using Any type here rather than list[BaseMessage] due to pydantic issue!
+        messages: Any",1968,1976,https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/tests/unit_tests/runnables/test_runnable_events_v1.py#L1971-L1973,AI-assisted contextual review by Codex; not human ground truth,SATD,Uses Any to work around Pydantic re-instantiating a list and breaking shared-state mutation; retained separately from the analogous v2 test location.,Selected comments from the existing seeded 100-comment sample; not a census of this repository,,
