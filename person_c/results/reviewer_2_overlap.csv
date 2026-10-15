@@ -1,0 +1,276 @@
+comment_id,framework,repository,commit,path,start_line,end_line,raw_text,context,source_url,label,reason
+51436fc63eb118759411449723a0589a28804fcca00491eca5633f1c24acb617,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/vector_stores/llama-index-vector-stores-opensearch/llama_index/vector_stores/opensearch/base.py,1028,1028,# TODO: Legacy support for old nodes,"                node = metadata_dict_to_node(metadata)
+                node.text = text
+            except Exception:
+                # TODO: Legacy support for old nodes
+                node_info = source.get(""node_info"")
+                relationships = source.get(""relationships"") or {}
+                start_char_idx = None",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-opensearch/llama_index/vector_stores/opensearch/base.py#L1028-L1028,,
+8d9dee6f4c622c92d8641df97969cba9b2111e5677eb61fdc8a3594696ad23b6,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/messages/block_translators/openai.py,606,606,# TODO: standardise container_file_citation?,"
+        return document_citation
+
+    # TODO: standardise container_file_citation?
+    non_standard_annotation: types.NonStandardAnnotation = {
+        ""type"": ""non_standard_annotation"",
+        ""value"": annotation,",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/messages/block_translators/openai.py#L606-L606,,
+623bc0fd276c81511515163e084bac0563d9e46d5ee662af1bcbb81685f1643f,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/tests/unit_tests/output_parsers/test_base_parsers.py,112,112,"# inputs to models are ignored, response is hard-coded in model definition","
+    model = GenericFakeChatModel(messages=iter([AIMessage(content=""hello world"")]))
+    chain = model | StrInvertCase()
+    # inputs to models are ignored, response is hard-coded in model definition
+    chunks = list(chain.stream(""""))
+    assert chunks == [""HELLO"", "" "", ""WORLD""]",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/tests/unit_tests/output_parsers/test_base_parsers.py#L112-L112,,
+be7d728b6a2517fae76f2afd7453fc7062056eb5824dcde57fb5ad9932b622c1,MetaGPT,FoundationAgents/MetaGPT,11cdf466d042aece04fc6cfd13b28e1a70341b1f,metagpt/ext/aflow/scripts/utils.py,50,50,"# If there are no hardcoded test cases, read from the file","    if entry_point in hardcoded_cases:
+        return hardcoded_cases[entry_point]
+
+    # If there are no hardcoded test cases, read from the file
+    with open(file_path, ""r"") as file:
+        for line in file:
+            data = json.loads(line)",https://github.com/FoundationAgents/MetaGPT/blob/11cdf466d042aece04fc6cfd13b28e1a70341b1f/metagpt/ext/aflow/scripts/utils.py#L50-L50,,
+d22336d7af525a2df36aca464fad606beae2d14b1c3a8c909ebafc6d265a3fcd,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/tracers/log_stream.py,596,596,# Workaround for Runnables not using None,"    # We should try to fix this in Runnables and callbacks/tracers
+    # Runnables should be using a None type here not a placeholder
+    # dict.
+    if inputs == {""input"": """"}:  # Workaround for Runnables not using None
+        # The input is not known, so we don't assign data['input']
+        return None
+    return inputs",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/tracers/log_stream.py#L596-L596,,
+e46ec016d9274132d7b19e82d888de058cbe32bdd0b81482a12dff2e81600b71,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/tools/llama-index-tools-yelp/llama_index/tools/yelp/base.py,33,33,# TODO add disclaimer,"class YelpToolSpec(BaseToolSpec):
+    """"""Yelp tool spec.""""""
+
+    # TODO add disclaimer
+    spec_functions = [""business_search"", ""business_reviews""]
+
+    def __init__(self, api_key: str, client_id: str) -> Document:",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/tools/llama-index-tools-yelp/llama_index/tools/yelp/base.py#L33-L33,,
+122ec9671084b26cf933cabae540652e636ef27cfe27eda3aa3e95441538a985,AutoGen,microsoft/autogen,027ecf0a379bcc1d09956d46d12d44a3ad9cee14,python/packages/autogen-ext/src/autogen_ext/agents/azure/_azure_ai_agent.py,781,781,# TODO support for parameter to control polling interval,"            if run.status == RunStatus.COMPLETED:
+                break
+
+            # TODO support for parameter to control polling interval
+            await asyncio.sleep(polling_interval)
+
+        # After run is completed, get the messages",https://github.com/microsoft/autogen/blob/027ecf0a379bcc1d09956d46d12d44a3ad9cee14/python/packages/autogen-ext/src/autogen_ext/agents/azure/_azure_ai_agent.py#L781-L781,,
+a37f01cb651db56d613d77a482585f68d101c46fddda785a310ad7e48cc3290f,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/tests/unit_tests/language_models/chat_models/test_cache.py,238,241,"# RACE CONDITION -- note behavior is different from async
+# Now, reset cache and test the race condition
+# For now we just hard-code the result, if this changes
+# we can investigate further","        assert results[0].content == results[1].content
+        assert {results[0].content, results[1].content}.issubset({""hello"", ""goodbye""})
+
+        # RACE CONDITION -- note behavior is different from async
+        # Now, reset cache and test the race condition
+        # For now we just hard-code the result, if this changes
+        # we can investigate further
+        global_cache = InMemoryCache()
+        set_llm_cache(global_cache)
+        assert global_cache._cache == {}",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/tests/unit_tests/language_models/chat_models/test_cache.py#L238-L241,,
+369a152c2ce9eddabefe9db54d1120d428edc00761bf68f2d53f4ab3b2842b43,AutoGen,microsoft/autogen,027ecf0a379bcc1d09956d46d12d44a3ad9cee14,python/packages/autogen-ext/src/autogen_ext/models/ollama/_ollama_client.py,373,373,# TODO: Does this need to change?,"    return name
+
+
+# TODO: Does this need to change?
+def normalize_stop_reason(stop_reason: str | None) -> FinishReasons:
+    if stop_reason is None:
+        return ""unknown""",https://github.com/microsoft/autogen/blob/027ecf0a379bcc1d09956d46d12d44a3ad9cee14/python/packages/autogen-ext/src/autogen_ext/models/ollama/_ollama_client.py#L373-L373,,
+61853a554f6aee895c6a18900e7afb26e00a02bea4b65ccf496f1b2aa495eae7,Semantic Kernel,microsoft/semantic-kernel,5b4a3269a6803f7832568e66313c31d714a1f009,python/semantic_kernel/utils/telemetry/model_diagnostics/decorators.py,41,50,"# We're recording multiple events for the chat history, some of them are emitted within (hundreds of)
+# nanoseconds of each other. The default timestamp resolution is not high enough to guarantee unique
+# timestamps for each message. Also Azure Monitor truncates resolution to microseconds and some other
+# backends truncate to milliseconds.
+#
+# But we need to give users a way to restore chat message order, so we're incrementing the timestamp
+# by 1 microsecond for each message.
+#
+# This is a workaround, we'll find a generic and better solution - see
+# https://github.com/open-telemetry/semantic-conventions/issues/1701","TEXT_COMPLETION_OPERATION = ""text_completions""
+
+
+# We're recording multiple events for the chat history, some of them are emitted within (hundreds of)
+# nanoseconds of each other. The default timestamp resolution is not high enough to guarantee unique
+# timestamps for each message. Also Azure Monitor truncates resolution to microseconds and some other
+# backends truncate to milliseconds.
+#
+# But we need to give users a way to restore chat message order, so we're incrementing the timestamp
+# by 1 microsecond for each message.
+#
+# This is a workaround, we'll find a generic and better solution - see
+# https://github.com/open-telemetry/semantic-conventions/issues/1701
+class ChatHistoryMessageTimestampFilter(logging.Filter):
+    """"""A filter to increment the timestamp of INFO logs by 1 microsecond.""""""
+",https://github.com/microsoft/semantic-kernel/blob/5b4a3269a6803f7832568e66313c31d714a1f009/python/semantic_kernel/utils/telemetry/model_diagnostics/decorators.py#L41-L50,,
+afc9318ca9371e9c1d518da7af7cd5a98a1f91250fbf26e680640920566336ce,MetaGPT,FoundationAgents/MetaGPT,11cdf466d042aece04fc6cfd13b28e1a70341b1f,metagpt/ext/aflow/scripts/utils.py,21,21,# Retain the original hardcoded test cases,"def extract_test_cases_from_jsonl(entry_point: str, dataset: CodeDataset = CodeDataset.HUMAN_EVAL):
+    if dataset == CodeDataset.HUMAN_EVAL.value:
+        file_path = ""metagpt/ext/aflow/data/humaneval_public_test.jsonl""
+        # Retain the original hardcoded test cases
+        hardcoded_cases = {
+            ""find_zero"": """",
+            ""decode_cyclic"": """",",https://github.com/FoundationAgents/MetaGPT/blob/11cdf466d042aece04fc6cfd13b28e1a70341b1f/metagpt/ext/aflow/scripts/utils.py#L21-L21,,
+f9779816a477968b0cb74b97aee4fc1e4fb35e01d613e36a663e689a72114c21,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/llms/llama-index-llms-openai/llama_index/llms/openai/utils.py,821,821,# hardcode to ensure developer messages are used,"            message_dicts = to_openai_responses_message_dict(
+                message,
+                drop_none=drop_none,
+                model=""o3-mini"",  # hardcode to ensure developer messages are used
+                store=store,
+            )
+            if isinstance(message_dicts, list):",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/llms/llama-index-llms-openai/llama_index/llms/openai/utils.py#L821-L821,,
+83dce209003076b8bb85f00d06181988c90efddfaa2c30b134140cf56c981035,LangGraph,langchain-ai/langgraph,a6731f436700c7d46a9224ccd3a0e0ce3a5bfdb5,libs/langgraph/langgraph/pregel/_runner.py,79,81,"# Stop condition is injected by PregelRunner instead of hard-coded here.
+# This lets the runner treat graph-error-handled exceptions as non-fatal
+# so `on_done` does not trigger an early stop for those futures.","class FuturesDict(Generic[F, E], dict[F, PregelExecutableTask | None]):
+    event: E
+    callback: weakref.ref[Callable[[PregelExecutableTask, BaseException | None], None]]
+    # Stop condition is injected by PregelRunner instead of hard-coded here.
+    # This lets the runner treat graph-error-handled exceptions as non-fatal
+    # so `on_done` does not trigger an early stop for those futures.
+    should_stop: Callable[[set[F]], bool]
+    counter: int
+    done: set[F]",https://github.com/langchain-ai/langgraph/blob/a6731f436700c7d46a9224ccd3a0e0ce3a5bfdb5/libs/langgraph/langgraph/pregel/_runner.py#L79-L81,,
+fe73d07c2d9b85771cdbde3c3a389a3559df3d00c045ca96e3c319b0e24a46ca,CrewAI,crewAIInc/crewAI,ba367461691278cf3b49afb68c785ca1935ff448,lib/crewai/src/crewai/telemetry/tracing/semantic_conventions.py,46,48,"# Attribute keys for duration and count metrics.
+# Use these constants instead of hardcoding the strings to keep a single
+# source of truth.  The dict-building functions below use the same keys.","logger = logging.getLogger(__name__)
+
+
+# Attribute keys for duration and count metrics.
+# Use these constants instead of hardcoding the strings to keep a single
+# source of truth.  The dict-building functions below use the same keys.
+CREW_EXECUTION_DURATION_MS = ""crewai.crew.execution_duration_ms""
+AGENT_EXECUTION_DURATION_MS = ""crewai.agent.execution_duration_ms""
+AGENT_LLM_CALLS_COUNT = ""crewai.agent.llm_calls_count""",https://github.com/crewAIInc/crewAI/blob/ba367461691278cf3b49afb68c785ca1935ff448/lib/crewai/src/crewai/telemetry/tracing/semantic_conventions.py#L46-L48,,
+463dd55d99dc9562966fcbaa860e0beae8beeade24fe813a520b064101e79f59,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/tests/unit_tests/stubs.py,19,21,"# Please note that the `id` field is assigned AFTER the model is created
+# to workaround an issue with pydantic ignoring the __eq__ method on
+# subclassed strings.","# The code below creates version of pydantic models
+# that will work in unit tests with AnyStr as id field
+
+# Please note that the `id` field is assigned AFTER the model is created
+# to workaround an issue with pydantic ignoring the __eq__ method on
+# subclassed strings.
+
+
+def _any_id_document(**kwargs: Any) -> Document:",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/tests/unit_tests/stubs.py#L19-L21,,
+4eb395a737fc6c8dd0185027b8890227ee94baf8966b6f73c671a179c0a82d3f,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/llms/function_calling.py,111,111,# TODO: no validation for streaming outputs,"            tool_required=tool_required,
+            **kwargs,
+        )
+        # TODO: no validation for streaming outputs
+        return self.stream_chat(**chat_kwargs)
+
+    async def astream_chat_with_tools(",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/llms/function_calling.py#L111-L111,,
+e3fa4fb83701354636fc412984bf3122b868b8fba1c5460488ac385aaec3caaf,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/partners/openai/tests/unit_tests/chat_models/test_responses_stream.py,1201,1203,"# `in_memory` must validate cleanly: no fallback to the non-validating
+# construct. Otherwise this test would pass even if the SDK rejected the
+# value, giving false confidence in the removed normalization workaround.","            full = chunk if full is None else full + chunk
+    assert isinstance(full, AIMessageChunk)
+    assert full.id == ""resp_123""
+    # `in_memory` must validate cleanly: no fallback to the non-validating
+    # construct. Otherwise this test would pass even if the SDK rejected the
+    # value, giving false confidence in the removed normalization workaround.
+    assert ""falling back to non-validating construct"" not in caplog.text
+    # The completed event drives usage/metadata aggregation, so assert it
+    # survived coercion when that branch is exercised.",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/partners/openai/tests/unit_tests/chat_models/test_responses_stream.py#L1201-L1203,,
+4c2c142547754f358d770e730c356043c4603f07f3debeab990e291b0eb7e219,CrewAI,crewAIInc/crewAI,ba367461691278cf3b49afb68c785ca1935ff448,lib/crewai/src/crewai/utilities/env.py,33,35,"# Walks the shared table rather than restating precedence: hard-coding the
+# order here let the two paths drift, so a marker added for telemetry was
+# invisible to this one.","        return
+    _env_context_emitted.set(True)
+
+    # Walks the shared table rather than restating precedence: hard-coding the
+    # order here let the two paths drift, so a marker added for telemetry was
+    # invisible to this one.
+    for agent_name, env_vars in CODING_AGENT_ENV_MARKERS:
+        if any(os.environ.get(var) for var in env_vars):
+            event = _AGENT_EVENTS.get(agent_name, DefaultEnvEvent)",https://github.com/crewAIInc/crewAI/blob/ba367461691278cf3b49afb68c785ca1935ff448/lib/crewai/src/crewai/utilities/env.py#L33-L35,,
+a842221107ee22264b392e70d152df0d6cb1dca0811451fa787c3811b492845b,AutoGen,microsoft/autogen,027ecf0a379bcc1d09956d46d12d44a3ad9cee14,python/packages/autogen-core/src/autogen_core/_single_threaded_agent_runtime.py,630,630,# TODO if responses are given for a publish,"                    self._background_exception = e
+            finally:
+                self._message_queue.task_done()
+            # TODO if responses are given for a publish
+
+    async def _process_response(self, message_envelope: ResponseMessageEnvelope) -> None:
+        with self._tracer_helper.trace_block(",https://github.com/microsoft/autogen/blob/027ecf0a379bcc1d09956d46d12d44a3ad9cee14/python/packages/autogen-core/src/autogen_core/_single_threaded_agent_runtime.py#L630-L630,,
+ce43fbc947873dc59a075a4408856c2ad6224cb65835b12bba28dfc7dc11a036,OpenAI Agents SDK,openai/openai-agents-python,1c1a28df92f359dded4eed83976301c2f9850e89,tests/test_logprobs.py,161,162,"# Setting both top_logprobs and extra_args[""logprobs""] was already a working workaround;
+# the SDK must defer to the caller's logprobs rather than adding a duplicate that collides.","        tracing=ModelTracing.DISABLED,
+        previous_response_id=None,
+    )
+    # Setting both top_logprobs and extra_args[""logprobs""] was already a working workaround;
+    # the SDK must defer to the caller's logprobs rather than adding a duplicate that collides.
+    kwargs = client.chat.completions.kwargs
+    assert kwargs[""top_logprobs""] == 2
+    assert kwargs[""logprobs""] is True",https://github.com/openai/openai-agents-python/blob/1c1a28df92f359dded4eed83976301c2f9850e89/tests/test_logprobs.py#L161-L162,,
+5ce62bc16b5278a4766f1e924a8a873d8224ba8abc6a8f135b83b6be11482fb2,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/vectorstores/base.py,652,654,"# This is a temporary workaround to make the similarity search
+# asynchronous. The proper solution is to make the similarity search
+# asynchronous in the vector store implementations.","        Returns:
+            List of `Document` objects most similar to the query vector.
+        """"""
+        # This is a temporary workaround to make the similarity search
+        # asynchronous. The proper solution is to make the similarity search
+        # asynchronous in the vector store implementations.
+        return await run_in_executor(
+            None, self.similarity_search_by_vector, embedding, k=k, **kwargs
+        )",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/vectorstores/base.py#L652-L654,,
+432ed0e70b9220f892c92a649e7260d547f5cbc7662867b35d3709186b97fd4e,MetaGPT,FoundationAgents/MetaGPT,11cdf466d042aece04fc6cfd13b28e1a70341b1f,metagpt/roles/di/role_zero.py,304,304,"# NOTE: Diff 1: Each time landing here means news is observed, set todo to allow news processing in _think","        )
+
+    async def _react(self) -> Message:
+        # NOTE: Diff 1: Each time landing here means news is observed, set todo to allow news processing in _think
+        self._set_state(0)
+
+        # problems solvable by quick thinking doesn't need to a formal think-act cycle",https://github.com/FoundationAgents/MetaGPT/blob/11cdf466d042aece04fc6cfd13b28e1a70341b1f/metagpt/roles/di/role_zero.py#L304-L304,,
+a3a4b0ef528d0c624da4c206ed0347f2fce04b0a8a3cd9c7c2475cf6b51bf6cd,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/messages/utils.py,697,703,"# Map of class names emitted in the `Serializable` constructor-envelope
+# (`{""lc"": 1, ""type"": ""constructor"", ""id"": [..., ""<ClassName>""],
+# ""kwargs"": {...}}`) to the message-type strings
+# `_create_message_from_message_type` accepts. Read by
+# `_convert_to_message`'s dict branch when unpacking that wire shape.
+# Kept as a hardcoded allowlist of strings rather than a class registry
+# lookup so dispatch never resolves to a class chosen by the caller.","    return message
+
+
+# Map of class names emitted in the `Serializable` constructor-envelope
+# (`{""lc"": 1, ""type"": ""constructor"", ""id"": [..., ""<ClassName>""],
+# ""kwargs"": {...}}`) to the message-type strings
+# `_create_message_from_message_type` accepts. Read by
+# `_convert_to_message`'s dict branch when unpacking that wire shape.
+# Kept as a hardcoded allowlist of strings rather than a class registry
+# lookup so dispatch never resolves to a class chosen by the caller.
+_LC_CONSTRUCTOR_NAME_TO_TYPE: dict[str, str] = {
+    ""HumanMessage"": ""human"",
+    ""HumanMessageChunk"": ""human"",",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/messages/utils.py#L697-L703,,
+338e7cef529fadd67a26ed291f00d53febd950cc2cdcc9a5720238ec6035a8ff,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-core/llama_index/core/indices/multi_modal/base.py,170,170,# kludge. They don't actually inherit from these types.,"    ) -> BaseChatEngine:
+        llm = llm or Settings.llm
+        assert isinstance(llm, (BaseLLM, MultiModalLLM))
+        llm = cast(LLM, llm)  # kludge. They don't actually inherit from these types.
+        class_name = llm.class_name()
+        if ""multi"" not in class_name:
+            logger.warning(",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/indices/multi_modal/base.py#L170-L170,,
+8af41b555f288379cfa552504e7e17d5c5ad91f635b442773b42ecdaf044f640,LlamaIndex,run-llama/llama_index,5b7b6e323e1da3edd787a2104a89257c14f026d0,llama-index-integrations/vector_stores/llama-index-vector-stores-relyt/llama_index/vector_stores/relyt/base.py,132,133,"# TODO: the more filter type(le, ne, ge ...) will add later, after the base api supported,
+#  now only support eq filter for meta information","    def drop(self) -> None:
+        self._client.drop()
+
+    # TODO: the more filter type(le, ne, ge ...) will add later, after the base api supported,
+    #  now only support eq filter for meta information
+    def query(self, query: VectorStoreQuery, **kwargs: Any) -> VectorStoreQueryResult:
+        results = self._client.search(
+            embedding=query.query_embedding,",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-relyt/llama_index/vector_stores/relyt/base.py#L132-L133,,
+8920c9d46a9bf33aa8921c5ca4708f44eae5364b508bba9f43e772df413a5f2a,Semantic Kernel,microsoft/semantic-kernel,5b4a3269a6803f7832568e66313c31d714a1f009,python/semantic_kernel/connectors/azure_ai_search.py,251,251,"# hardcoded, only allowed type for key","            fields.append(
+                SimpleField(
+                    name=field.storage_name or field.name,
+                    type=""Edm.String"",  # hardcoded, only allowed type for key
+                    key=True,
+                    filterable=True,
+                    searchable=True,",https://github.com/microsoft/semantic-kernel/blob/5b4a3269a6803f7832568e66313c31d714a1f009/python/semantic_kernel/connectors/azure_ai_search.py#L251-L251,,
+63c8114f4276a10996e9077fa8bbb91b7a13145466c98869d48da810cf203a2e,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/core/langchain_core/messages/content.py,310,310,# TODO: Consider making fields NotRequired[str] in the future.,"    ```
+    """"""
+
+    # TODO: Consider making fields NotRequired[str] in the future.
+
+    type: Literal[""tool_call_chunk""]
+    """"""Used for serialization.""""""",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/core/langchain_core/messages/content.py#L310-L310,,
+75d1a741dbe5adcada1e9e8cb981de1aef00c3d396895c4ace5d1eb5dab1e7df,LangChain,langchain-ai/langchain,8ace87e7a6493d41d4c61bb41a637052367b27f3,libs/partners/mistralai/langchain_mistralai/chat_models.py,799,799,# TODO: handle retries and max_concurrency,"                timeout=self.timeout,
+                verify=global_ssl_context,
+            )
+        # TODO: handle retries and max_concurrency
+        if not self.async_client:
+            self.async_client = httpx.AsyncClient(
+                base_url=base_url_str,",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/partners/mistralai/langchain_mistralai/chat_models.py#L799-L799,,
+fc38fe44d6291e537ec92b31d52d509ef79690cc3c0dc0de69a956c68c96ba8b,Semantic Kernel,microsoft/semantic-kernel,5b4a3269a6803f7832568e66313c31d714a1f009,python/semantic_kernel/agents/runtime/core/telemetry/tracing_config.py,130,130,# TODO(evmattso): Make this more pythonic?,"            ""messaging.destination"": self._get_destination_str(destination),
+        }
+        if extraAttributes:
+            # TODO(evmattso): Make this more pythonic?
+            if ""message_size"" in extraAttributes:
+                attrs[""messaging.message.envelope.size""] = extraAttributes[""message_size""]
+            if ""message_type"" in extraAttributes:",https://github.com/microsoft/semantic-kernel/blob/5b4a3269a6803f7832568e66313c31d714a1f009/python/semantic_kernel/agents/runtime/core/telemetry/tracing_config.py#L130-L130,,
+a3bae1adb70b6b6bd09a7e78f9905755e14fd018c551f3c05d5a5a5f63164d7e,LangGraph,langchain-ai/langgraph,a6731f436700c7d46a9224ccd3a0e0ce3a5bfdb5,libs/langgraph/langgraph/pregel/_write.py,166,167,"# using object.__setattr__ to work around objects that override __setattr__
+# eg. pydantic models and dataclasses","        """"""Used to mark a runnable as a writer, so that it can be detected by is_writer.
+        Instances of ChannelWrite are automatically marked as writers.
+        Optionally, a list of declared writes can be passed for static analysis.""""""
+        # using object.__setattr__ to work around objects that override __setattr__
+        # eg. pydantic models and dataclasses
+        object.__setattr__(runnable, ""_is_channel_writer"", static)
+        return runnable
+",https://github.com/langchain-ai/langgraph/blob/a6731f436700c7d46a9224ccd3a0e0ce3a5bfdb5/libs/langgraph/langgraph/pregel/_write.py#L166-L167,,

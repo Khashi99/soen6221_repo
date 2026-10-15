@@ -1,0 +1,54 @@
+{
+  "status": "human_validation_pending",
+  "adjudication_status": "pending_or_uncertain",
+  "independent_labels_status": "pending",
+  "group_statistics": {
+    "strict": {
+      "population": 641,
+      "sampled": 50,
+      "reviewed": 0,
+      "confirmed_satd": 0,
+      "non_satd": 0,
+      "unresolved_uncertain": 0,
+      "missing_labels": 50,
+      "confirmed_fraction": null,
+      "precision": null,
+      "resolved_proportion": null,
+      "resolved_wilson_95": null,
+      "confirmed_fraction_bounds": null,
+      "note": "Resolved-only proportions may be biased when uncertain cases remain."
+    },
+    "loose_only": {
+      "population": 52,
+      "sampled": 50,
+      "reviewed": 0,
+      "confirmed_satd": 0,
+      "non_satd": 0,
+      "unresolved_uncertain": 0,
+      "missing_labels": 50,
+      "confirmed_fraction": null,
+      "precision": null,
+      "resolved_proportion": null,
+      "resolved_wilson_95": null,
+      "confirmed_fraction_bounds": null,
+      "note": "Resolved-only proportions may be biased when uncertain cases remain."
+    }
+  },
+  "population_weights": {
+    "strict": 0.924963924963925,
+    "loose_only": 0.07503607503607504
+  },
+  "population_weighted_precision": null,
+  "population_weighted_confirmed_fraction_bounds": null,
+  "agreement": {
+    "overlap_rows": 30,
+    "paired_binary_n": 0,
+    "excluded_uncertain_or_blank": 30,
+    "uncertain_handling": "Exclude pairs with an uncertain or blank independent label.",
+    "raw_agreement": null,
+    "expected_agreement": null,
+    "cohens_kappa": null
+  },
+  "absolute_recall": "not estimated",
+  "warning": "Human identities and independence must be established outside this calculation. Do not substitute machine-generated labels."
+}

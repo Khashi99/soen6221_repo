@@ -1,0 +1,11 @@
+framework,strict_sampled,loose_only_sampled,total_sampled
+LlamaIndex,23,7,30
+LangChain,7,20,27
+AutoGen,6,1,7
+OpenAI Agents SDK,0,2,2
+LangGraph,0,3,3
+MetaGPT,8,5,13
+Semantic Kernel,4,3,7
+CrewAI,1,8,9
+Haystack,0,1,1
+smolagents,1,0,1

@@ -1,0 +1,146 @@
+{
+  "status": "automated_complete_human_labels_pending",
+  "detector_version": "0.2.0",
+  "study": "fresh independent study, not pilot reproduction",
+  "detector_hash": "cc3a34e3433c27870007f0be2cd0148050a8c0edb93a947f4966a9337a84ee91",
+  "python_version": "3.12.14",
+  "seed": 6221,
+  "configuration_hash": "3b50a36ff641b804d39bc7e6bc904700d20f1acdb3aec14095fe04cc2eabac27",
+  "corpus_hash": "4bb7df1aa624641a09e2c7be55e80cc28e2d9647fac8b2057fa05ac16afa16e7",
+  "scope": "All tracked Python .py files in ten pinned framework snapshots; tests retained; actual # comments only; docstrings excluded.",
+  "exclusions": [
+    ".git",
+    ".venv",
+    "venv",
+    "env",
+    "__pycache__",
+    "node_modules",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".tox",
+    ".nox",
+    ".eggs",
+    "vendor",
+    "vendored",
+    "third_party",
+    "site-packages"
+  ],
+  "anchoring": "every_line",
+  "framework_commits": [
+    [
+      "AutoGen",
+      "027ecf0a379bcc1d09956d46d12d44a3ad9cee14"
+    ],
+    [
+      "CrewAI",
+      "ba367461691278cf3b49afb68c785ca1935ff448"
+    ],
+    [
+      "Haystack",
+      "2b8e1d9f8360757dd50e8e4f71f83cb042f97238"
+    ],
+    [
+      "LangChain",
+      "8ace87e7a6493d41d4c61bb41a637052367b27f3"
+    ],
+    [
+      "LangGraph",
+      "a6731f436700c7d46a9224ccd3a0e0ce3a5bfdb5"
+    ],
+    [
+      "LlamaIndex",
+      "5b7b6e323e1da3edd787a2104a89257c14f026d0"
+    ],
+    [
+      "MetaGPT",
+      "11cdf466d042aece04fc6cfd13b28e1a70341b1f"
+    ],
+    [
+      "OpenAI Agents SDK",
+      "1c1a28df92f359dded4eed83976301c2f9850e89"
+    ],
+    [
+      "Semantic Kernel",
+      "5b4a3269a6803f7832568e66313c31d714a1f009"
+    ],
+    [
+      "smolagents",
+      "96f33faaf028479119ec8d34507b47694cf14e34"
+    ]
+  ],
+  "denominator": "all extracted comment blocks per framework; repeated text at different locations is retained",
+  "sample_population": "strict_without_deprecated plus loose-only from full_without_deprecated",
+  "sample_size": 100,
+  "overlap_size": 30,
+  "overlap_comment_ids": [
+    "122ec9671084b26cf933cabae540652e636ef27cfe27eda3aa3e95441538a985",
+    "338e7cef529fadd67a26ed291f00d53febd950cc2cdcc9a5720238ec6035a8ff",
+    "369a152c2ce9eddabefe9db54d1120d428edc00761bf68f2d53f4ab3b2842b43",
+    "432ed0e70b9220f892c92a649e7260d547f5cbc7662867b35d3709186b97fd4e",
+    "463dd55d99dc9562966fcbaa860e0beae8beeade24fe813a520b064101e79f59",
+    "4c2c142547754f358d770e730c356043c4603f07f3debeab990e291b0eb7e219",
+    "4eb395a737fc6c8dd0185027b8890227ee94baf8966b6f73c671a179c0a82d3f",
+    "51436fc63eb118759411449723a0589a28804fcca00491eca5633f1c24acb617",
+    "5ce62bc16b5278a4766f1e924a8a873d8224ba8abc6a8f135b83b6be11482fb2",
+    "61853a554f6aee895c6a18900e7afb26e00a02bea4b65ccf496f1b2aa495eae7",
+    "623bc0fd276c81511515163e084bac0563d9e46d5ee662af1bcbb81685f1643f",
+    "63c8114f4276a10996e9077fa8bbb91b7a13145466c98869d48da810cf203a2e",
+    "75d1a741dbe5adcada1e9e8cb981de1aef00c3d396895c4ace5d1eb5dab1e7df",
+    "83dce209003076b8bb85f00d06181988c90efddfaa2c30b134140cf56c981035",
+    "8920c9d46a9bf33aa8921c5ca4708f44eae5364b508bba9f43e772df413a5f2a",
+    "8af41b555f288379cfa552504e7e17d5c5ad91f635b442773b42ecdaf044f640",
+    "8d9dee6f4c622c92d8641df97969cba9b2111e5677eb61fdc8a3594696ad23b6",
+    "a37f01cb651db56d613d77a482585f68d101c46fddda785a310ad7e48cc3290f",
+    "a3a4b0ef528d0c624da4c206ed0347f2fce04b0a8a3cd9c7c2475cf6b51bf6cd",
+    "a3bae1adb70b6b6bd09a7e78f9905755e14fd018c551f3c05d5a5a5f63164d7e",
+    "a842221107ee22264b392e70d152df0d6cb1dca0811451fa787c3811b492845b",
+    "afc9318ca9371e9c1d518da7af7cd5a98a1f91250fbf26e680640920566336ce",
+    "be7d728b6a2517fae76f2afd7453fc7062056eb5824dcde57fb5ad9932b622c1",
+    "ce43fbc947873dc59a075a4408856c2ad6224cb65835b12bba28dfc7dc11a036",
+    "d22336d7af525a2df36aca464fad606beae2d14b1c3a8c909ebafc6d265a3fcd",
+    "e3fa4fb83701354636fc412984bf3122b868b8fba1c5460488ac385aaec3caaf",
+    "e46ec016d9274132d7b19e82d888de058cbe32bdd0b81482a12dff2e81600b71",
+    "f9779816a477968b0cb74b97aee4fc1e4fb35e01d613e36a663e689a72114c21",
+    "fc38fe44d6291e537ec92b31d52d509ef79690cc3c0dc0de69a956c68c96ba8b",
+    "fe73d07c2d9b85771cdbde3c3a389a3559df3d00c045ca96e3c319b0e24a46ca"
+  ],
+  "coverage": 0.924963924963925,
+  "coverage_is_recall": false,
+  "absolute_recall": "not estimated",
+  "precision": "pending human labels",
+  "kappa": "pending independent human labels",
+  "snapshot_manifest_hash": "80cbddc74c12a59ec43afe27fc382e7909b97c5827a3ddf63f48b0b76152ef30",
+  "extraction_manifest_hash": "efab9229823d5d000784e923a11130f5ff113ccd1ef75d8525d1c0fe8091504b",
+  "source_provenance_hash": "99545b6eae65d1e16b2428c007fa0ac72f3c5ad66f9dfd084a2a4df1c0e4be2c",
+  "test_summary": {
+    "tests_passed": 15,
+    "fixtures": "synthetic; not human ground truth"
+  },
+  "repeatability": {
+    "corpus": "byte-identical",
+    "extraction_manifest": "byte-identical",
+    "sensitivity": "byte-identical",
+    "matches": "byte-identical",
+    "review_samples": "byte-identical",
+    "pinned_snapshots": "verified unchanged"
+  },
+  "integrity": {
+    "frameworks": 10,
+    "eligible_python_files": 12653,
+    "comment_blocks": 66754,
+    "duplicate_comment_ids": 0,
+    "tokenization_failures": 0,
+    "review_sample_size": 100,
+    "strict_review_rows": 50,
+    "loose_only_review_rows": 50,
+    "independent_overlap_size": 30,
+    "review_framework_coverage": 10
+  },
+  "source_verification": "pending; source hosts require runtime network access",
+  "pattern_status": "proposed independent set fixed for initial validation; not a final validated dictionary",
+  "document_validation": {
+    "rendered_pages": 3,
+    "all_pages_visually_inspected": true,
+    "layout_status": "passed"
+  }
+}

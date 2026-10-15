@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+# The complete uncompressed corpus is included in person_c_deliverables.zip.
+/person_c/extracted/comments.jsonl

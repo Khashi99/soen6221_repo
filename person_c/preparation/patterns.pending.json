@@ -1,0 +1,25 @@
+{
+  "status": "pending_inputs",
+  "frameworks": [
+    "LlamaIndex",
+    "LangChain",
+    "AutoGen",
+    "OpenAI Agents SDK",
+    "LangGraph",
+    "MetaGPT",
+    "Semantic Kernel",
+    "CrewAI",
+    "Haystack",
+    "smolagents"
+  ],
+  "anchoring": null,
+  "scope": "Python framework source, retaining tests; exact pilot extraction scope pending",
+  "exclusions": [],
+  "patterns": [],
+  "missing": [
+    "pilot script",
+    "exact strict and loose patterns and flags",
+    "comment corpus and extraction rules",
+    "ten pinned commit SHAs"
+  ]
+}

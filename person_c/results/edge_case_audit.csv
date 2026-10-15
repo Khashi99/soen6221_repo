@@ -1,0 +1,216 @@
+tag,comment_id,framework,raw_text,context,source_url,strict_candidate,full_candidate,human_label,reason
+identifier_collision,198b24c6e7c591c705b189ee767347f321201bb01fe87971ab99bb3da30d097a,LangChain,# Count write_todos tool calls,"        if not last_ai_msg or not last_ai_msg.tool_calls:
+            return None
+
+        # Count write_todos tool calls
+        write_todos_calls = [tc for tc in last_ai_msg.tool_calls if tc[""name""] == ""write_todos""]
+
+        if len(write_todos_calls) > 1:",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain_v1/langchain/agents/middleware/todo.py#L313-L313,False,False,,
+identifier_collision,2e7d913d742002553270aecc040cd32589abbae99c3514d25f57550f4ad07a11,LangChain,# Should return error messages for write_todos calls only,"    # Call aafter_model hook
+    result = await middleware.aafter_model(state, _fake_runtime())
+
+    # Should return error messages for write_todos calls only
+    assert result == {
+        ""messages"": [
+            ToolMessage(",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain_v1/tests/unit_tests/agents/middleware/implementations/test_todo.py#L778-L778,False,False,,
+identifier_collision,3790ef3c1bdde1ddbc8ee92b0dba0992f979544a061d025a741ccb34fa958ab7,MetaGPT,"# scenarios to set action system_prompt:
+#   1. `__init__` while using Role(actions=[...])
+#   2. add action to role while using `role.set_action(action)`
+#   3. set_todo while using `role.set_todo(action)`
+#   4. when role.system_prompt is being updated (e.g. by `role.system_prompt = ""...""`)
+# Additional, if llm is not set, we will use role's llm","    role_id: str = """"
+    states: list[str] = []
+
+    # scenarios to set action system_prompt:
+    #   1. `__init__` while using Role(actions=[...])
+    #   2. add action to role while using `role.set_action(action)`
+    #   3. set_todo while using `role.set_todo(action)`
+    #   4. when role.system_prompt is being updated (e.g. by `role.system_prompt = ""...""`)
+    # Additional, if llm is not set, we will use role's llm
+    actions: list[SerializeAsAny[Action]] = Field(default=[], validate_default=True)
+    rc: RoleContext = Field(default_factory=RoleContext)
+    addresses: set[str] = set()",https://github.com/FoundationAgents/MetaGPT/blob/11cdf466d042aece04fc6cfd13b28e1a70341b1f/metagpt/roles/role.py#L143-L148,False,False,,
+identifier_collision,3e231f73d1f54a9ad74f8d1ae8e97f11bab099f9b7c84c203edbdf69d5b79030,LangChain,# Create an AI message with two write_todos calls and one other tool call,"    """"""Test async version - parallel write_todos calls are rejected but other tool calls remain.""""""
+    middleware = TodoListMiddleware()
+
+    # Create an AI message with two write_todos calls and one other tool call
+    ai_message = AIMessage(
+        content=""I'll do multiple things"",
+        tool_calls=[",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain_v1/tests/unit_tests/agents/middleware/implementations/test_todo.py#L748-L748,False,False,,
+identifier_collision,43dc228bbd51b7f72cd78ac18d7de559ee42b86339d16f29c1a5da5da7e8cbb1,LangChain,"# Foreign IDs with characters Anthropic rejects (e.g. Fireworks/Kimi's
+# `functions.write_todos:0`) are rewritten to a compatible form.","    assert _normalize_tool_call_id("""") == """"
+    assert _normalize_tool_call_id(None) is None
+
+    # Foreign IDs with characters Anthropic rejects (e.g. Fireworks/Kimi's
+    # `functions.write_todos:0`) are rewritten to a compatible form.
+    invalid = ""functions.write_todos:0""
+    normalized = _normalize_tool_call_id(invalid)
+    assert normalized is not None",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/partners/anthropic/tests/unit_tests/test_chat_models.py#L1040-L1041,False,False,,
+negation,3853c7495898481593a8b626ce9e2de5fd9c55caeea1710f57248f94b7a485a0,CrewAI,# No todo — route to low handler which will just continue,"        effort = self._get_reasoning_effort()
+
+        if not current_todo:
+            # No todo — route to low handler which will just continue
+            return ""step_observed_low""
+
+        all_completed = self.state.todos.get_completed_todos()",https://github.com/crewAIInc/crewAI/blob/ba367461691278cf3b49afb68c785ca1935ff448/lib/crewai/src/crewai/experimental/agent_executor.py#L703-L703,True,True,,
+negation,b652624e73b3477adb1f57e07d61e26deda78d8c3f4bf55fe2f92416dd4085a1,CrewAI,# No current todo → not satisfied,"
+        executor = _build_executor(**mock_dependencies)
+
+        # No current todo → not satisfied
+        executor.state.todos = TodoList(items=[])
+        assert executor.check_native_todo_completion() == ""todo_not_satisfied""
+",https://github.com/crewAIInc/crewAI/blob/ba367461691278cf3b49afb68c785ca1935ff448/lib/crewai/tests/agents/test_agent_executor.py#L1435-L1435,True,True,,
+negation,fe43e07f3146855116fefb84c8efa8defd15cca5ee3fff908c622fc867eab5e6,LlamaIndex,"# Not in use. As part of the TODO below. Is part of the kwargs.
+# self.preloaded_data_path = kwargs.get('preloaded_data_path', None)","    file_metadata_fn: Optional[FileMetadataCallable] = Field(default=None, exclude=True)
+    filename_as_id: bool = True
+
+    # Not in use. As part of the TODO below. Is part of the kwargs.
+    # self.preloaded_data_path = kwargs.get('preloaded_data_path', None)
+
+    @classmethod
+    def class_name(cls) -> str:",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/readers/llama-index-readers-azstorage-blob/llama_index/readers/azstorage_blob/base.py#L109-L110,True,True,,
+optional_enhancement,001f9c201dac85ed6ed173c4cad47f4e908a900ab5b6c2433521aecb1f372f93,LangChain,"# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.","if TYPE_CHECKING:
+    from langchain_community.graphs import Neo4jGraph
+
+# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.
+DEPRECATED_LOOKUP = {""Neo4jGraph"": ""langchain_community.graphs""}
+
+_import_attribute = create_importer(__package__, deprecated_lookups=DEPRECATED_LOOKUP)",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain/langchain_classic/graphs/neo4j_graph.py#L8-L10,False,False,,
+optional_enhancement,00d4d4d1d4a475a295be712d3f228765a9877caee86b2745d4c495ca82324bff,Haystack,# noqa: UP045 - exercise typing.Optional compatibility,"        (State, True),
+        (Annotated[State, ""state""], True),
+        (Annotated[State | None, ""state""], True),
+        (Optional[Annotated[State, ""state""]], True),  # noqa: UP045 - exercise typing.Optional compatibility
+        (Annotated[str, ""description""], False),
+        (list[State], False),
+        (State | str, False),",https://github.com/deepset-ai/haystack/blob/2b8e1d9f8360757dd50e8e4f71f83cb042f97238/test/tools/test_parameters_schema_utils.py#L409-L409,False,False,,
+optional_enhancement,00fdb12e76c77ed818997c41c9d33056b01473fbac6ffea7901a0a15e71a7840,smolagents,# Optional argument should not be in required list,"        params = schema[""function""][""parameters""]
+        # Required argument should be in required list
+        assert ""required_arg"" in params[""required""]
+        # Optional argument should not be in required list
+        assert ""optional_arg"" not in params[""required""]
+        # Optional argument should be nullable
+        assert params[""properties""][""optional_arg""][""nullable""] is True",https://github.com/huggingface/smolagents/blob/96f33faaf028479119ec8d34507b47694cf14e34/tests/test_function_type_hints_utils.py#L366-L366,False,False,,
+optional_enhancement,012c89fec299d571e2c2552318ad43195b87ea0e2f8e7fadfe3a5038baee82f3,LangChain,"# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.","if TYPE_CHECKING:
+    from langchain_community.document_loaders import DatadogLogsLoader
+
+# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.
+DEPRECATED_LOOKUP = {""DatadogLogsLoader"": ""langchain_community.document_loaders""}
+
+_import_attribute = create_importer(__package__, deprecated_lookups=DEPRECATED_LOOKUP)",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain/langchain_classic/document_loaders/datadog_logs.py#L8-L10,False,False,,
+optional_enhancement,016a9722f9d7f3ca2cc64b663ca7bbea3e14b8aee014d02b09addb53bc9ef4c3,LangChain,"# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.","if TYPE_CHECKING:
+    from langchain_community.document_loaders import PubMedLoader
+
+# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.
+DEPRECATED_LOOKUP = {""PubMedLoader"": ""langchain_community.document_loaders""}
+
+_import_attribute = create_importer(__package__, deprecated_lookups=DEPRECATED_LOOKUP)",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain/langchain_classic/document_loaders/pubmed.py#L8-L10,False,False,,
+expected_test_failure,329d255f4c8636b427bd8e4de3a0c82c861fed115b8ae88cb4c1632a9e5791a2,Semantic Kernel,"# Sample output:
+# Expected failure to execute the function:  Error occurred while invoking function retry_function:
+# (""<class 'semantic_kernel.connectors.ai.open_ai.services.open_ai_chat_completion.OpenAIChatCompletion'> service
+# failed to complete the prompt"", AuthenticationError(""Error code: 401 - {'error': {'message': 'Incorrect API key
+# provided: invalid_key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type':
+# 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}""))
+# Model response:  I'm just a program, so I don't experience feelings, but I'm here and ready to help you out.
+# How can I assist you today?","
+    print(""Model response: "", response)
+
+    # Sample output:
+    # Expected failure to execute the function:  Error occurred while invoking function retry_function:
+    # (""<class 'semantic_kernel.connectors.ai.open_ai.services.open_ai_chat_completion.OpenAIChatCompletion'> service
+    # failed to complete the prompt"", AuthenticationError(""Error code: 401 - {'error': {'message': 'Incorrect API key
+    # provided: invalid_key. You can find your API key at https://platform.openai.com/account/api-keys.', 'type':
+    # 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}""))
+    # Model response:  I'm just a program, so I don't experience feelings, but I'm here and ready to help you out.
+    # How can I assist you today?
+
+
+if __name__ == ""__main__"":",https://github.com/microsoft/semantic-kernel/blob/5b4a3269a6803f7832568e66313c31d714a1f009/python/samples/concepts/filtering/retry_with_different_model.py#L87-L94,False,False,,
+expected_test_failure,5279de0bd67f34560e530429a2ae1d84b4d2562549ceb80227752002795cb500,LlamaIndex,# expected to fail if we don't have tenant_id in the node metadata,"        # create table twice when initializing the fixture, and insert one row
+        assert self.mock_connection.commit.call_count == 3
+
+        # expected to fail if we don't have tenant_id in the node metadata
+        with pytest.raises(Exception) as e_info:
+            self.tenant_aware_vector_store.add([node])
+            assert ""tenant_id cannot be None if tenant_aware is True"" in str(",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-nile/tests/test_vector_stores_nile.py#L49-L49,False,False,,
+expected_test_failure,569d7628393aa79dbedd7cb943c7f2504c88a172fa7061290fb883312b48bf9a,LlamaIndex,# marking this as xfail as we do not return invalid error anymore,"#     NVIDIAEmbedding(api_key=""BOGUS"", model=model)
+
+
+# marking this as xfail as we do not return invalid error anymore
+@pytest.mark.xfail(reason=""value error is not raised anymore"")
+def test_model_incompatible_client_model() -> None:
+    model_name = ""x""",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/embeddings/llama-index-embeddings-nvidia/tests/test_embeddings_nvidia.py#L120-L120,False,False,,
+expected_test_failure,7a80bc6397bcea0abfff650540ac2b82da234d6ef1f30a65a94c2fc372d54322,LlamaIndex,# expected to fail if we don't have tenant_id in kwargs,"        # create table twice when initializing the fixture, and delete one row
+        assert self.mock_connection.commit.call_count == 3
+
+        # expected to fail if we don't have tenant_id in kwargs
+        with pytest.raises(Exception) as e_info:
+            self.tenant_aware_vector_store.delete(""test_id"")
+            assert (",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-nile/tests/test_vector_stores_nile.py#L66-L66,False,False,,
+expected_test_failure,e242145cfb55bc3b8b63699886ff81303db5a12ebca2c10734997f39fc600356,LlamaIndex,# expected to fail if we don't have tenant_id in kwargs,"        results = self.vector_store.query(query_embedding)
+        assert isinstance(results, VectorStoreQueryResult)
+
+        # expected to fail if we don't have tenant_id in kwargs
+        with pytest.raises(Exception) as e_info:
+            self.tenant_aware_vector_store.query(query_embedding)
+            assert (",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/vector_stores/llama-index-vector-stores-nile/tests/test_vector_stores_nile.py#L85-L85,False,False,,
+routine_deprecation,001f9c201dac85ed6ed173c4cad47f4e908a900ab5b6c2433521aecb1f372f93,LangChain,"# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.","if TYPE_CHECKING:
+    from langchain_community.graphs import Neo4jGraph
+
+# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.
+DEPRECATED_LOOKUP = {""Neo4jGraph"": ""langchain_community.graphs""}
+
+_import_attribute = create_importer(__package__, deprecated_lookups=DEPRECATED_LOOKUP)",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain/langchain_classic/graphs/neo4j_graph.py#L8-L10,False,False,,
+routine_deprecation,00647c43e38707784f7bc7bfe876d50bcdd7b274c8a791e87b14982990f09ef3,LlamaIndex,"# TODO: deprecated, not used
+# mapping from node doc_id to vector store id","    # mapping from vector store id to node doc_id
+    nodes_dict: Dict[str, str] = field(default_factory=dict)
+
+    # TODO: deprecated, not used
+    # mapping from node doc_id to vector store id
+    doc_id_dict: Dict[str, List[str]] = field(default_factory=dict)
+
+    # TODO: deprecated, not used",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-core/llama_index/core/data_structs/data_structs.py#L186-L187,True,True,,
+routine_deprecation,012c89fec299d571e2c2552318ad43195b87ea0e2f8e7fadfe3a5038baee82f3,LangChain,"# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.","if TYPE_CHECKING:
+    from langchain_community.document_loaders import DatadogLogsLoader
+
+# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.
+DEPRECATED_LOOKUP = {""DatadogLogsLoader"": ""langchain_community.document_loaders""}
+
+_import_attribute = create_importer(__package__, deprecated_lookups=DEPRECATED_LOOKUP)",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain/langchain_classic/document_loaders/datadog_logs.py#L8-L10,False,False,,
+routine_deprecation,016a9722f9d7f3ca2cc64b663ca7bbea3e14b8aee014d02b09addb53bc9ef4c3,LangChain,"# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.","if TYPE_CHECKING:
+    from langchain_community.document_loaders import PubMedLoader
+
+# Create a way to dynamically look up deprecated imports.
+# Used to consolidate logic for raising deprecation warnings and
+# handling optional imports.
+DEPRECATED_LOOKUP = {""PubMedLoader"": ""langchain_community.document_loaders""}
+
+_import_attribute = create_importer(__package__, deprecated_lookups=DEPRECATED_LOOKUP)",https://github.com/langchain-ai/langchain/blob/8ace87e7a6493d41d4c61bb41a637052367b27f3/libs/langchain/langchain_classic/document_loaders/pubmed.py#L8-L10,False,False,,
+routine_deprecation,02875fb79b9132f8d5f49d5f2c7f8b43ed4fa9097ec80e7d5b0093af95f4ecf8,LlamaIndex,# Deprecated,"        drive_id: Optional[str] = None,
+        folder_id: Optional[str] = None,
+        file_ids: Optional[List[str]] = None,
+        mime_types: Optional[List[str]] = None,  # Deprecated
+        query_string: Optional[str] = None,
+    ) -> List[Document]:
+        """"""",https://github.com/run-llama/llama_index/blob/5b7b6e323e1da3edd787a2104a89257c14f026d0/llama-index-integrations/readers/llama-index-readers-google/llama_index/readers/google/drive/base.py#L638-L638,False,False,,

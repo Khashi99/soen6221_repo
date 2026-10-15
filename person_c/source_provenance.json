@@ -1,0 +1,36 @@
+{
+  "status": "original_paper_verification_pending",
+  "context_source": "references/project-context.md",
+  "context_hash": "9c4a27ad86b77a51e1257a4919fabfba0372436f7475754d9a107a968a8a7fe6",
+  "sources": [
+    {
+      "id": "MAT",
+      "url": "https://arxiv.org/abs/1910.13238",
+      "supplied_claim": "Abstract names TODO FIXME XXX HACK; MAT uses fuzzy matching.",
+      "verified": false,
+      "observation": "HTTPS proxy returned 403 Forbidden before network draft additions; not retried without an applied runtime change."
+    },
+    {
+      "id": "Vidoni2021",
+      "url": "https://melvidoni.rbind.io/publication/2021-rsatd-msr.pdf",
+      "supplied_claim": "Section IV-C printed p185 lists workaround, hard coded, temporary solution, kludge, ugly.",
+      "verified": false,
+      "observation": "HTTPS proxy returned 403 Forbidden before network draft additions; not retried without an applied runtime change."
+    },
+    {
+      "id": "PotdarShihab2014",
+      "doi": "10.1109/ICSME.2014.31",
+      "verified": false,
+      "observation": "Original 62-pattern dictionary unavailable; no attempt to reconstruct or attribute proposed patterns to it."
+    }
+  ],
+  "network_draft": {
+    "added_custom_domains": [
+      "arxiv.org",
+      "melvidoni.rbind.io"
+    ],
+    "persistence": "confirmed",
+    "runtime_application": "not confirmed"
+  },
+  "pattern_status": "Exact proposed independent configuration fixed before sampling; final validated selection pending human labels and source checks."
+}

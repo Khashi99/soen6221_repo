@@ -1,0 +1,70 @@
+{
+  "status": "blocked_missing_pilot_inputs",
+  "seed": 6221,
+  "detector_version": "0.1.0",
+  "detector_sha256": "a306477ec986c0d88da3c58f20a196e79ef9dd8a2fc77b870bbd1e735fbfc30d",
+  "python_version": "3.12.14",
+  "configuration_hash": "14d7c7ab5181c1672a7ac5eac7a572bfbcb8b6029d507b35839425aa7fba37ec",
+  "corpus_hash": null,
+  "scope": "Python framework source, retaining tests; exact pilot extraction scope pending",
+  "exclusions": "pending exact pilot exclusions",
+  "inputs": [
+    {
+      "name": "icon.svg",
+      "path": "/workspace/attachments/c8e064b3-c5fa-4719-8e33-c33570a056d3/icon.svg",
+      "sha256": "49315dda7125ec5fc77ef5f2b96126d8b2121c6e72944b4702972e90f321d3ee"
+    },
+    {
+      "name": "openai.yaml",
+      "path": "/workspace/attachments/56d97ef3-6eaa-4e99-9f13-8ce67a980eb3/openai.yaml",
+      "sha256": "48d57104eb62bc27dc7c5a4224c21fe73af486ceeb5ccb0a8e4e7aa08fad9228"
+    },
+    {
+      "name": "SKILL.md",
+      "path": "/workspace/attachments/62818e7f-49c7-42d0-9553-7beb8332af5d/SKILL.md",
+      "sha256": "1019acfcea714f3f12bfadfbf9363b5a27e0db4de3d4f7b1e904e44c5740a911"
+    },
+    {
+      "name": "project-context.md",
+      "path": "/workspace/attachments/08e5daf2-54fb-40a5-bd52-6a2b339a7bb8/project-context.md",
+      "sha256": "9c4a27ad86b77a51e1257a4919fabfba0372436f7475754d9a107a968a8a7fe6"
+    }
+  ],
+  "checks": {
+    "synthetic_tests_passed": 8,
+    "framework_analysis_run": false,
+    "real_review_comments_sampled": 0
+  },
+  "pilot_reported": {
+    "comment_blocks": 62905,
+    "strict_candidates": 640,
+    "loose_only": 1206,
+    "full_candidates": 1846,
+    "status": "unverified"
+  },
+  "missing": [
+    "pilot script",
+    "exact strict and loose patterns and flags",
+    "comment corpus and extraction rules",
+    "ten pinned commit SHAs"
+  ],
+  "human_labels": "not supplied",
+  "final_pattern_selection": "pending",
+  "precision": "not measured",
+  "kappa": "not measured",
+  "absolute_recall": "not estimated",
+  "pilot_inputs_confirmed_unavailable": true,
+  "fresh_study_authorization": "pending explicit scope choice",
+  "source_verification": [
+    {
+      "url": "https://arxiv.org/abs/1910.13238",
+      "status": "blocked",
+      "observation": "HTTPS proxy tunnel returned 403 Forbidden; source contents not verified"
+    },
+    {
+      "url": "https://melvidoni.rbind.io/publication/2021-rsatd-msr.pdf",
+      "status": "blocked",
+      "observation": "HTTPS proxy tunnel returned 403 Forbidden; source contents not verified"
+    }
+  ]
+}

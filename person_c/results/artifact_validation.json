@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "synthetic_tests": 15,
+  "corpus_repeatability": true,
+  "sample_integrity": true,
+  "reviewer_group_blinding": true,
+  "pinned_commits_verified": true,
+  "all_labels_blank": true,
+  "word_report_pages": 3,
+  "word_report_visual_inspection": "passed"
+}

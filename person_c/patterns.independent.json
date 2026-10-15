@@ -1,0 +1,162 @@
+{
+  "status": "ready",
+  "study": "fresh independent study, not pilot reproduction",
+  "frameworks": [
+    "LlamaIndex",
+    "LangChain",
+    "AutoGen",
+    "OpenAI Agents SDK",
+    "LangGraph",
+    "MetaGPT",
+    "Semantic Kernel",
+    "CrewAI",
+    "Haystack",
+    "smolagents"
+  ],
+  "anchoring": "every_line",
+  "scope": "All tracked Python .py files in ten pinned framework snapshots; tests retained; actual # comments only; docstrings excluded.",
+  "exclusions": [
+    ".git",
+    ".venv",
+    "venv",
+    "env",
+    "__pycache__",
+    "node_modules",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".tox",
+    ".nox",
+    ".eggs",
+    "vendor",
+    "vendored",
+    "third_party",
+    "site-packages"
+  ],
+  "normalization": "Keep raw # tokens. For matching, remove the first # and leading whitespace on each token line, joining adjacent standalone comments with newline at identical indentation. Retain case in copy; regex flags ignore case.",
+  "patterns": [
+    {
+      "id": "S01",
+      "group": "strict",
+      "kind": "marker",
+      "regex": "\\bTODO\\b",
+      "case_sensitive": false,
+      "source": "Adapted from the four marker names in the supplied project-context.md citing MAT arXiv:1910.13238; original abstract access blocked. Exact case-insensitive whole-word matching is this study proposal, not MAT fuzzy matching.",
+      "reason": "Explicit correction or shortcut marker; context may still reveal a false positive.",
+      "provenance": "adapted_from_supplied_context_source_unverified",
+      "display": "TODO"
+    },
+    {
+      "id": "S02",
+      "group": "strict",
+      "kind": "marker",
+      "regex": "\\bFIXME\\b",
+      "case_sensitive": false,
+      "source": "Adapted from the four marker names in the supplied project-context.md citing MAT arXiv:1910.13238; original abstract access blocked. Exact case-insensitive whole-word matching is this study proposal, not MAT fuzzy matching.",
+      "reason": "Explicit correction or shortcut marker; context may still reveal a false positive.",
+      "provenance": "adapted_from_supplied_context_source_unverified",
+      "display": "FIXME"
+    },
+    {
+      "id": "S03",
+      "group": "strict",
+      "kind": "marker",
+      "regex": "\\bXXX\\b",
+      "case_sensitive": false,
+      "source": "Adapted from the four marker names in the supplied project-context.md citing MAT arXiv:1910.13238; original abstract access blocked. Exact case-insensitive whole-word matching is this study proposal, not MAT fuzzy matching.",
+      "reason": "Explicit correction or shortcut marker; context may still reveal a false positive.",
+      "provenance": "adapted_from_supplied_context_source_unverified",
+      "display": "XXX"
+    },
+    {
+      "id": "S04",
+      "group": "strict",
+      "kind": "marker",
+      "regex": "\\bHACK\\b",
+      "case_sensitive": false,
+      "source": "Adapted from the four marker names in the supplied project-context.md citing MAT arXiv:1910.13238; original abstract access blocked. Exact case-insensitive whole-word matching is this study proposal, not MAT fuzzy matching.",
+      "reason": "Explicit correction or shortcut marker; context may still reveal a false positive.",
+      "provenance": "adapted_from_supplied_context_source_unverified",
+      "display": "HACK"
+    },
+    {
+      "id": "P01",
+      "group": "loose_only",
+      "kind": "phrase",
+      "regex": "\\bwork(?:[ -]?around)\\b",
+      "case_sensitive": false,
+      "display": "workaround / work around / work-around",
+      "source": "Proposed for this independent run. Terms are listed in supplied project-context.md as a lead to Vidoni 2021 Section IV-C printed p.185; original PDF access blocked. Not a verified transcription or the Potdar-Shihab 62-pattern dictionary.",
+      "reason": "May acknowledge a compensating implementation compromise.",
+      "provenance": "proposed_source_lead_unverified"
+    },
+    {
+      "id": "P02",
+      "group": "loose_only",
+      "kind": "phrase",
+      "regex": "\\bhard[ -]?cod(?:e|ed|ing)\\b",
+      "case_sensitive": false,
+      "display": "hardcode / hardcoded / hardcoding variants",
+      "source": "Proposed for this independent run. Terms are listed in supplied project-context.md as a lead to Vidoni 2021 Section IV-C printed p.185; original PDF access blocked. Not a verified transcription or the Potdar-Shihab 62-pattern dictionary.",
+      "reason": "May acknowledge a fixed-value shortcut; ordinary configuration documentation may be a false positive.",
+      "provenance": "proposed_source_lead_unverified"
+    },
+    {
+      "id": "P03",
+      "group": "loose_only",
+      "kind": "phrase",
+      "regex": "\\btemporary\\s+solution\\b",
+      "case_sensitive": false,
+      "display": "temporary solution",
+      "source": "Proposed for this independent run. Terms are listed in supplied project-context.md as a lead to Vidoni 2021 Section IV-C printed p.185; original PDF access blocked. Not a verified transcription or the Potdar-Shihab 62-pattern dictionary.",
+      "reason": "May acknowledge a deliberately provisional implementation.",
+      "provenance": "proposed_source_lead_unverified"
+    },
+    {
+      "id": "P04",
+      "group": "loose_only",
+      "kind": "phrase",
+      "regex": "\\bkludge\\b",
+      "case_sensitive": false,
+      "display": "kludge",
+      "source": "Proposed for this independent run. Terms are listed in supplied project-context.md as a lead to Vidoni 2021 Section IV-C printed p.185; original PDF access blocked. Not a verified transcription or the Potdar-Shihab 62-pattern dictionary.",
+      "reason": "May explicitly acknowledge an inelegant workaround.",
+      "provenance": "proposed_source_lead_unverified"
+    },
+    {
+      "id": "P05",
+      "group": "loose_only",
+      "kind": "phrase",
+      "regex": "\\bugly\\b",
+      "case_sensitive": false,
+      "display": "ugly",
+      "source": "Proposed for this independent run. Terms are listed in supplied project-context.md as a lead to Vidoni 2021 Section IV-C printed p.185; original PDF access blocked. Not a verified transcription or the Potdar-Shihab 62-pattern dictionary.",
+      "reason": "May admit deficient implementation quality; broad usage requires validation.",
+      "provenance": "proposed_source_lead_unverified"
+    },
+    {
+      "id": "D01",
+      "group": "deprecated",
+      "kind": "marker",
+      "regex": "\\bDEPRECATED\\b",
+      "case_sensitive": false,
+      "display": "DEPRECATED",
+      "source": "Proposed diagnostic comparison requested by supplied satd-keyword-validation skill.",
+      "reason": "Measure sensitivity to routine deprecation; excluded from the review/full pool because deprecation alone does not admit debt.",
+      "provenance": "proposed_diagnostic"
+    }
+  ],
+  "excluded_patterns": [
+    {
+      "pattern": "Potdar-Shihab 62-pattern dictionary",
+      "reason": "Original dictionary unavailable; not reconstructed."
+    },
+    {
+      "pattern": "quick fix and failure phrases",
+      "reason": "Additional validation needed; omitted from initial proposed set."
+    },
+    {
+      "pattern": "missing validation / needs refactoring / brittle / magic number",
+      "reason": "Earlier proposals are not the pilot dictionary; omitted to keep this initial independent set bounded."
+    }
+  ]
+}

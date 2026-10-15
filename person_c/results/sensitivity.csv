@@ -1,0 +1,45 @@
+framework,variant,comment_blocks,candidates,added_vs_strict,removed_vs_strict,candidates_per_1000_blocks,status
+LlamaIndex,strict_plus_deprecated,13345,313,57,0,23.454477332334207,measured
+LlamaIndex,strict_without_deprecated,13345,256,0,0,19.183214687148745,measured
+LlamaIndex,anchored_strict_without_deprecated,13345,244,0,12,18.284001498688646,measured
+LlamaIndex,full_without_deprecated,13345,263,7,0,19.70775571375047,measured
+LangChain,strict_plus_deprecated,11602,967,878,0,83.34769867264265,measured
+LangChain,strict_without_deprecated,11602,89,0,0,7.671091191173936,measured
+LangChain,anchored_strict_without_deprecated,11602,84,0,5,7.240131011894501,measured
+LangChain,full_without_deprecated,11602,109,20,0,9.394931908291674,measured
+AutoGen,strict_plus_deprecated,6816,110,10,0,16.13849765258216,measured
+AutoGen,strict_without_deprecated,6816,100,0,0,14.671361502347418,measured
+AutoGen,anchored_strict_without_deprecated,6816,98,0,2,14.37793427230047,measured
+AutoGen,full_without_deprecated,6816,101,1,0,14.818075117370892,measured
+OpenAI Agents SDK,strict_plus_deprecated,7700,13,0,0,1.6883116883116882,measured
+OpenAI Agents SDK,strict_without_deprecated,7700,13,0,0,1.6883116883116882,measured
+OpenAI Agents SDK,anchored_strict_without_deprecated,7700,12,0,1,1.5584415584415585,measured
+OpenAI Agents SDK,full_without_deprecated,7700,15,2,0,1.948051948051948,measured
+LangGraph,strict_plus_deprecated,6031,25,15,0,4.14524954402255,measured
+LangGraph,strict_without_deprecated,6031,10,0,0,1.65809981760902,measured
+LangGraph,anchored_strict_without_deprecated,6031,10,0,0,1.65809981760902,measured
+LangGraph,full_without_deprecated,6031,13,3,0,2.1555297628917263,measured
+MetaGPT,strict_plus_deprecated,2905,98,1,0,33.734939759036145,measured
+MetaGPT,strict_without_deprecated,2905,97,0,0,33.39070567986231,measured
+MetaGPT,anchored_strict_without_deprecated,2905,81,0,16,27.882960413080895,measured
+MetaGPT,full_without_deprecated,2905,102,5,0,35.111876075731494,measured
+Semantic Kernel,strict_plus_deprecated,7818,38,2,0,4.860578152980302,measured
+Semantic Kernel,strict_without_deprecated,7818,36,0,0,4.604758250191865,measured
+Semantic Kernel,anchored_strict_without_deprecated,7818,35,0,1,4.476848298797647,measured
+Semantic Kernel,full_without_deprecated,7818,40,4,0,5.116398055768739,measured
+CrewAI,strict_plus_deprecated,3926,24,7,0,6.113092205807438,measured
+CrewAI,strict_without_deprecated,3926,17,0,0,4.3301069791136015,measured
+CrewAI,anchored_strict_without_deprecated,3926,13,0,4,3.3112582781456954,measured
+CrewAI,full_without_deprecated,3926,26,9,0,6.622516556291391,measured
+Haystack,strict_plus_deprecated,5238,3,0,0,0.572737686139748,measured
+Haystack,strict_without_deprecated,5238,3,0,0,0.572737686139748,measured
+Haystack,anchored_strict_without_deprecated,5238,2,0,1,0.3818251240931653,measured
+Haystack,full_without_deprecated,5238,4,1,0,0.7636502481863306,measured
+smolagents,strict_plus_deprecated,1373,22,2,0,16.023306627822286,measured
+smolagents,strict_without_deprecated,1373,20,0,0,14.566642388929353,measured
+smolagents,anchored_strict_without_deprecated,1373,18,0,2,13.109978150036417,measured
+smolagents,full_without_deprecated,1373,20,0,0,14.566642388929353,measured
+TOTAL,strict_plus_deprecated,66754,1613,972,0,24.163346016718098,measured
+TOTAL,strict_without_deprecated,66754,641,0,0,9.602420828714385,measured
+TOTAL,anchored_strict_without_deprecated,66754,597,0,44,8.943284297570184,measured
+TOTAL,full_without_deprecated,66754,693,52,0,10.381400365521166,measured

@@ -1,0 +1,12 @@
+framework,full_candidates,status
+LlamaIndex,459,team_reported_unverified
+LangChain,403,team_reported_unverified
+AutoGen,207,team_reported_unverified
+OpenAI Agents SDK,182,team_reported_unverified
+LangGraph,144,team_reported_unverified
+MetaGPT,121,team_reported_unverified
+Semantic Kernel,110,team_reported_unverified
+CrewAI,98,team_reported_unverified
+Haystack,71,team_reported_unverified
+smolagents,51,team_reported_unverified
+TOTAL,1846,team_reported_unverified

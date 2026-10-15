@@ -1,0 +1,45 @@
+framework,variant,comment_blocks,candidates,added_vs_strict,removed_vs_strict,candidates_per_1000_blocks,status
+LlamaIndex,strict_plus_deprecated,,,,,,pending_pilot_inputs
+LlamaIndex,strict_without_deprecated,,,,,,pending_pilot_inputs
+LlamaIndex,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+LlamaIndex,full_without_deprecated,,,,,,pending_pilot_inputs
+LangChain,strict_plus_deprecated,,,,,,pending_pilot_inputs
+LangChain,strict_without_deprecated,,,,,,pending_pilot_inputs
+LangChain,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+LangChain,full_without_deprecated,,,,,,pending_pilot_inputs
+AutoGen,strict_plus_deprecated,,,,,,pending_pilot_inputs
+AutoGen,strict_without_deprecated,,,,,,pending_pilot_inputs
+AutoGen,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+AutoGen,full_without_deprecated,,,,,,pending_pilot_inputs
+OpenAI Agents SDK,strict_plus_deprecated,,,,,,pending_pilot_inputs
+OpenAI Agents SDK,strict_without_deprecated,,,,,,pending_pilot_inputs
+OpenAI Agents SDK,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+OpenAI Agents SDK,full_without_deprecated,,,,,,pending_pilot_inputs
+LangGraph,strict_plus_deprecated,,,,,,pending_pilot_inputs
+LangGraph,strict_without_deprecated,,,,,,pending_pilot_inputs
+LangGraph,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+LangGraph,full_without_deprecated,,,,,,pending_pilot_inputs
+MetaGPT,strict_plus_deprecated,,,,,,pending_pilot_inputs
+MetaGPT,strict_without_deprecated,,,,,,pending_pilot_inputs
+MetaGPT,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+MetaGPT,full_without_deprecated,,,,,,pending_pilot_inputs
+Semantic Kernel,strict_plus_deprecated,,,,,,pending_pilot_inputs
+Semantic Kernel,strict_without_deprecated,,,,,,pending_pilot_inputs
+Semantic Kernel,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+Semantic Kernel,full_without_deprecated,,,,,,pending_pilot_inputs
+CrewAI,strict_plus_deprecated,,,,,,pending_pilot_inputs
+CrewAI,strict_without_deprecated,,,,,,pending_pilot_inputs
+CrewAI,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+CrewAI,full_without_deprecated,,,,,,pending_pilot_inputs
+Haystack,strict_plus_deprecated,,,,,,pending_pilot_inputs
+Haystack,strict_without_deprecated,,,,,,pending_pilot_inputs
+Haystack,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+Haystack,full_without_deprecated,,,,,,pending_pilot_inputs
+smolagents,strict_plus_deprecated,,,,,,pending_pilot_inputs
+smolagents,strict_without_deprecated,,,,,,pending_pilot_inputs
+smolagents,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+smolagents,full_without_deprecated,,,,,,pending_pilot_inputs
+TOTAL,strict_plus_deprecated,,,,,,pending_pilot_inputs
+TOTAL,strict_without_deprecated,,,,,,pending_pilot_inputs
+TOTAL,anchored_strict_without_deprecated,,,,,,pending_pilot_inputs
+TOTAL,full_without_deprecated,,,,,,pending_pilot_inputs

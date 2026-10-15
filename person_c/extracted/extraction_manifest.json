@@ -1,0 +1,114 @@
+{
+  "input": {
+    "study": "fresh independent study; not pilot reproduction",
+    "authorization": "user authorized fresh independent study",
+    "docstrings": "exclude",
+    "tests": "include",
+    "source_files": "tracked Python .py files",
+    "excluded_directory_names": [
+      ".git",
+      ".venv",
+      "venv",
+      "env",
+      "__pycache__",
+      "node_modules",
+      ".mypy_cache",
+      ".pytest_cache",
+      ".tox",
+      ".nox",
+      ".eggs",
+      "vendor",
+      "vendored",
+      "third_party",
+      "site-packages"
+    ],
+    "repositories": [
+      {
+        "framework": "LlamaIndex",
+        "repository": "run-llama/llama_index",
+        "commit": "5b7b6e323e1da3edd787a2104a89257c14f026d0",
+        "checkout": "/workspace/satd-source-cache/run-llama__llama_index",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:32.695838+00:00"
+      },
+      {
+        "framework": "LangChain",
+        "repository": "langchain-ai/langchain",
+        "commit": "8ace87e7a6493d41d4c61bb41a637052367b27f3",
+        "checkout": "/workspace/satd-source-cache/langchain-ai__langchain",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:13.514678+00:00"
+      },
+      {
+        "framework": "AutoGen",
+        "repository": "microsoft/autogen",
+        "commit": "027ecf0a379bcc1d09956d46d12d44a3ad9cee14",
+        "checkout": "/workspace/satd-source-cache/microsoft__autogen",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:13.418079+00:00"
+      },
+      {
+        "framework": "OpenAI Agents SDK",
+        "repository": "openai/openai-agents-python",
+        "commit": "1c1a28df92f359dded4eed83976301c2f9850e89",
+        "checkout": "/workspace/satd-source-cache/openai__openai-agents-python",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:16.272235+00:00"
+      },
+      {
+        "framework": "LangGraph",
+        "repository": "langchain-ai/langgraph",
+        "commit": "a6731f436700c7d46a9224ccd3a0e0ce3a5bfdb5",
+        "checkout": "/workspace/satd-source-cache/langchain-ai__langgraph",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:15.506049+00:00"
+      },
+      {
+        "framework": "MetaGPT",
+        "repository": "FoundationAgents/MetaGPT",
+        "commit": "11cdf466d042aece04fc6cfd13b28e1a70341b1f",
+        "checkout": "/workspace/satd-source-cache/FoundationAgents__MetaGPT",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:21.028273+00:00"
+      },
+      {
+        "framework": "Semantic Kernel",
+        "repository": "microsoft/semantic-kernel",
+        "commit": "5b4a3269a6803f7832568e66313c31d714a1f009",
+        "checkout": "/workspace/satd-source-cache/microsoft__semantic-kernel",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:22.162006+00:00"
+      },
+      {
+        "framework": "CrewAI",
+        "repository": "crewAIInc/crewAI",
+        "commit": "ba367461691278cf3b49afb68c785ca1935ff448",
+        "checkout": "/workspace/satd-source-cache/crewAIInc__crewAI",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:38.280998+00:00"
+      },
+      {
+        "framework": "Haystack",
+        "repository": "deepset-ai/haystack",
+        "commit": "2b8e1d9f8360757dd50e8e4f71f83cb042f97238",
+        "checkout": "/workspace/satd-source-cache/deepset-ai__haystack",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:28.213759+00:00"
+      },
+      {
+        "framework": "smolagents",
+        "repository": "huggingface/smolagents",
+        "commit": "96f33faaf028479119ec8d34507b47694cf14e34",
+        "checkout": "/workspace/satd-source-cache/huggingface__smolagents",
+        "selection": "fresh default branch snapshot",
+        "acquired_at_utc": "2026-10-14T02:03:29.122772+00:00"
+      }
+    ]
+  },
+  "input_hash": "80cbddc74c12a59ec43afe27fc382e7909b97c5827a3ddf63f48b0b76152ef30",
+  "detector_version": "0.2.0",
+  "python_version": "3.12.14",
+  "comment_blocks": 66754,
+  "corpus_hash": "4bb7df1aa624641a09e2c7be55e80cc28e2d9647fac8b2057fa05ac16afa16e7",
+  "errors": 0
+}
